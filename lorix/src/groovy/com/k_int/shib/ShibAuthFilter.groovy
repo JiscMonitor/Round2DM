@@ -26,7 +26,7 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
         // log.debug("Persistent Id:: ${request.getAttribute('persistent-id')}");
   
 
-        User.withTransaction { status ->
+        AuthCommonUser.withTransaction { status ->
           def existing_user = AuthCommonUser.findByUsername(request.getRemoteUser())
           if ( existing_user ) {
             // log.debug("User found, all is well");

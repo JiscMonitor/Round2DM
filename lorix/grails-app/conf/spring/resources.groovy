@@ -1,7 +1,7 @@
 // Place your Spring DSL code here
 beans = {
 
-  userDetailsService(org.codehaus.groovy.grails.plugins.springsecurity.GormUserDetailsService) {
+  userDetailsService(grails.plugin.springsecurity.userdetails.GormUserDetailsService) {
     grailsApplication = ref('grailsApplication')
   }
 

@@ -138,6 +138,7 @@ log4j.main = {
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'uk.ac.jisc.lorix.AuthCommonUser'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'uk.ac.jisc.lorix.AuthCommonUserAuthCommonRole'
 grails.plugin.springsecurity.authority.className = 'uk.ac.jisc.lorix.AuthCommonRole'
+
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/assets/**':                     ['permitAll'],
@@ -146,4 +147,10 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/images/**':                  ['permitAll'],
 	'/**/favicon.ico':                ['permitAll']
 ]
+
+
+grails.plugin.springsecurity.providerNames = ['preAuthenticatedAuthenticationProvider', 
+                                              'daoAuthenticationProvider', 
+                                              'anonymousAuthenticationProvider', 
+                                              'rememberMeAuthenticationProvider' ]
 

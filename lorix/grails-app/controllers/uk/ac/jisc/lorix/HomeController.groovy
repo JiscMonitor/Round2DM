@@ -25,4 +25,10 @@ class HomeController {
   def index() { 
     log.debug(request)
   }
+
+  @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
+  def index2() {
+    log.debug(request)
+    redirect(action:'index')
+  }
 }

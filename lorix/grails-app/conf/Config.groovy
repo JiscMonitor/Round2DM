@@ -140,9 +140,6 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'uk.ac.jisc.lor
 grails.plugin.springsecurity.authority.className = 'uk.ac.jisc.lorix.AuthCommonRole'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
-	'/index':                         ['permitAll'],
-	'/home/**':                       ['permitAll'],
-	'/index.gsp':                     ['permitAll'],
 	'/assets/**':                     ['permitAll'],
 	'/**/js/**':                      ['permitAll'],
 	'/**/css/**':                     ['permitAll'],

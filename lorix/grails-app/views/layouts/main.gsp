@@ -113,17 +113,6 @@
   
                   </ul> <!-- /.nav-second-level --></li>
   
-                <li><g:link controller="welcome"><i class="fa fa-tasks fa-fw"></i>
-                    To Do<span class="fa arrow"></span></g:link>
-                    <ul class="nav nav-second-level">
-                      <li><g:link controller="search" action="index"
-                          params="${[qbe:'g:reviewRequests',qp_allocatedto:'org.gokb.cred.User:'+request.user.id]}">
-                          <i class="fa fa-angle-double-right fa-f"></i> My ToDos</g:link></li>
-                      <li><g:link controller="search" action="index"
-                          params="${[qbe:'g:reviewRequests']}"><i class="fa fa-angle-double-right fa-fw"></i>
-                          Data Review</g:link></li>
-                    </ul>
-                </li>
                 <li><g:link controller="upload" action="index"><i class="fa fa-upload fa-fw"></i> File Upload</g:link></li>
                 <li><g:link controller="masterList" action="index"><i class="fa fa-list-alt fa-fw"></i> Master List</g:link></li>
                 <li><g:link controller="coreference" action="index"><i class="fa fa-list-alt fa-fw"></i> Coreference</g:link></li>

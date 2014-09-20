@@ -4,24 +4,18 @@ import uk.ac.jisc.lorix.*
 
 public class ShibAuthFilter extends org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter {
 
-  private java.util.HashMap map = null;
   def grailsApplication
-
-  def setEdiAuthTokenMap(java.util.HashMap map) {
-    this.map = map;
-  }
 
   def getPreAuthenticatedPrincipal(javax.servlet.http.HttpServletRequest request) {
 
-    // log.debug("EdiauthFilter::getPreAuthenticatedPrincipal ${request}");
+    log.debug("ShibAuthFilter::getPreAuthenticatedPrincipal ${request}");
 
     def result
 
     if ( grailsApplication?.config?.authmethod=='shib' ) {
       log.debug("Checking shib auth..");
       if ( request.getRemoteUser() != null ) {
-        log.debug("Got remote user");
-        // log.debug("In shibboleth authentication mode. If we're here - the user is pre-authenticated. Extract username and make sure there is a user record");
+        log.debug("In shibboleth authentication mode. If we're here - the user is pre-authenticated. Extract username and make sure there is a user record");
         // User ID should be in request.getAttribute('persistent-id');
         // log.debug("Remote User(fn):: ${request.getRemoteUser()}");
         // log.debug("Remote User:: ${request.getAttribute('REMOTE_USER')}");

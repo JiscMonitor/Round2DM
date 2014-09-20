@@ -128,7 +128,8 @@ log4j.main = {
            'grails.app.conf',
            'grails.app.jobs',
            'grails.app.bootstrap',
-           'grails.app.startup'
+           'grails.app.startup',
+           'com.k_int.shib'
 
 }
 

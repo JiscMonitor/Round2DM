@@ -35,6 +35,13 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 
+        // For Shibb 2.0 plugin
+        mavenRepo "http://nexus.k-int.com/content/repositories/releases"
+
+        // For latest ldap lib
+        mavenRepo "http://repo.spring.io/milestone/"
+
+
         grailsPlugins()
         grailsHome()
         mavenLocal()
@@ -44,6 +51,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+
     }
 
     dependencies {
@@ -79,5 +87,6 @@ grails.project.dependency.resolution = {
 
         compile ":spring-security-core:2.0-RC4"
         compile ":spring-security-ui:1.0-RC2"
+        compile ":spring-security-shibboleth-native-sp:2.0.0-RC1"
     }
 }

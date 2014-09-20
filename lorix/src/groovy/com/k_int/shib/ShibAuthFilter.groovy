@@ -18,7 +18,9 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
     def result
 
     if ( grailsApplication?.config?.authmethod=='shib' ) {
+      log.debug("Checking shib auth..");
       if ( request.getRemoteUser() != null ) {
+        log.debug("Got remote user");
         // log.debug("In shibboleth authentication mode. If we're here - the user is pre-authenticated. Extract username and make sure there is a user record");
         // User ID should be in request.getAttribute('persistent-id');
         // log.debug("Remote User(fn):: ${request.getRemoteUser()}");
@@ -29,9 +31,12 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
         AuthCommonUser.withTransaction { status ->
           def existing_user = AuthCommonUser.findByUsername(request.getRemoteUser())
           if ( existing_user ) {
-            // log.debug("User found, all is well");
+            log.debug("User ${request.getRemoteUser()} found, all is well");
           }
           else {
+
+            log.debug("User ${request.getRemoteUser()} not found.. create");
+
             existing_user = new AuthCommonUser(
                                      username:request.getRemoteUser(),
                                      password:'**',

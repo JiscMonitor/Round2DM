@@ -22,7 +22,7 @@ class HomeController {
     response.addHeader(HEADER_CACHE_CONTROL, "no-store");
   }
 
-  @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
   def index() { 
+    log.debug(request)
   }
 }

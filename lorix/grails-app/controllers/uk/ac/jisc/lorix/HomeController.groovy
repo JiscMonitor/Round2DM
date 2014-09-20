@@ -23,6 +23,7 @@ class HomeController {
   }
 
   def index() { 
+    log.debug("Current user: ${springSecurityService.getCurrentUser()}");
     log.debug(request)
   }
 

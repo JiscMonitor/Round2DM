@@ -1,6 +1,7 @@
 package com.k_int.shib
 
 import uk.ac.jisc.lorix.*
+import org.springframework.security.context.SecurityContextHolder;
 
 public class ShibAuthFilter extends org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter {
 
@@ -14,6 +15,11 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
 
     if ( grailsApplication?.config?.authmethod=='shib' ) {
       log.debug("Checking shib auth..");
+
+      // This should get hold of the 
+      def preauth_info = SecurityContextHolder.getContext().getAuthentication()
+      log.debug("PreauthInfo: ${preauth_info}");
+
       if ( request.getRemoteUser() != null ) {
         log.debug("In shibboleth authentication mode. If we're here - the user is pre-authenticated. Extract username and make sure there is a user record");
         // User ID should be in request.getAttribute('persistent-id');
@@ -39,6 +45,7 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
                                      accountLocked:false,
                                      passwordExpired:false,
                                      email:request.getAttribute('email'))
+                                     // email:request.getAttribute('email'))
 
             if ( existing_user.save(flush:true) ) {
               log.debug("Created user, allocating user role");

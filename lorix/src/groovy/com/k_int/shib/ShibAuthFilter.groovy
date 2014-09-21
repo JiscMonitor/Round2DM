@@ -9,7 +9,13 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
 
   def getPreAuthenticatedPrincipal(javax.servlet.http.HttpServletRequest request) {
 
-    log.debug("ShibAuthFilter::getPreAuthenticatedPrincipal ${request}, attributes:${request.getAttributeNames()}, params:${request.getParameterNames()}");
+    log.debug("ShibAuthFilter::getPreAuthenticatedPrincipal ${request}");
+    request.getAttributeNames().each {
+      log.debug("attr: ${it} : ${request.getAttribute(it)}");
+    }
+    request.getParameterNames().each {
+      log.debug("param: ${it} : ${request.getParameter(it)}");
+    }
 
     def result
 

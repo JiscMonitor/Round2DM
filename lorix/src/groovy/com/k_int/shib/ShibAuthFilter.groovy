@@ -39,7 +39,26 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
         // User ID should be in request.getAttribute('persistent-id');
         log.debug("Remote User(fn):: ${request.getRemoteUser()} (class: ${request.getRemoteUser()?.class?.name})");
         log.debug("User Principal:: ${request.getUserPrincipal()} (class: ${request.getUserPrincipal()?.class?.name})");
+
+        // Hmm.. interesting.. Persistent-id does not appear in the list of attrs above...
         log.debug("Persistent Id:: ${request.getAttribute('persistent-id')}");
+
+        def tst_attrs = [ 'persistent-id', 
+                      'eppn',
+                      'mail',
+                      'givenname',
+                      'affiliation', 
+                      'uid', 
+                      'Shib-Session-Index', 
+                      'Shib-Session-ID', 
+                      'Shib-AuthnContext-Class', 
+                      'Shib-Application-ID', 
+                      'unscoped-affiliation'
+                    ]
+        tst_attrs.each { it ->
+          log.debug("tst:: ${it} : ${request.getAttribute(it)}");
+        }
+   
         log.debug("Remote User:: ${request.getAttribute('REMOTE_USER')} (class: ${request.getAttribute('REMOTE_USER')?.class?.name})");
   
 

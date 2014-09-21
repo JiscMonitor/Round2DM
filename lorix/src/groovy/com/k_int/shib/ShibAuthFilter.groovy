@@ -16,6 +16,9 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
     request.getParameterNames().each {
       log.debug("param: ${it} : ${request.getParameter(it)}");
     }
+    request.getSession().getAttributeNames().each {
+      log.debug("param: ${it} : ${request.getSession().getAttribute(it)}");
+    }
 
     def result
 
@@ -29,10 +32,10 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
       if ( request.getRemoteUser() != null ) {
         log.debug("In shibboleth authentication mode. If we're here - the user is pre-authenticated. Extract username and make sure there is a user record");
         // User ID should be in request.getAttribute('persistent-id');
-        log.debug("Remote User(fn):: ${request.getRemoteUser()} (class: ${request.getRemoteUser()?.class.name})");
-        log.debug("Remote User:: ${request.getAttribute('REMOTE_USER')} (class: ${request.getAttribute('REMOTE_USER')?.class.name})");
-        log.debug("User Principal:: ${request.getUserPrincipal()} (class: ${request.getUserPrincipal()?.class.name})");
+        log.debug("Remote User(fn):: ${request.getRemoteUser()} (class: ${request.getRemoteUser()?.class?.name})");
+        log.debug("User Principal:: ${request.getUserPrincipal()} (class: ${request.getUserPrincipal()?.class?.name})");
         log.debug("Persistent Id:: ${request.getAttribute('persistent-id')}");
+        log.debug("Remote User:: ${request.getAttribute('REMOTE_USER')} (class: ${request.getAttribute('REMOTE_USER')?.class?.name})");
   
 
         AuthCommonUser.withTransaction { status ->

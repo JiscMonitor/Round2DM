@@ -16,8 +16,9 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
     request.getParameterNames().each {
       log.debug("param: ${it} : ${request.getParameter(it)}");
     }
+    log.debug("Headers..");
     request.getHeaderNames().each {
-      log.debug("param: ${it} : ${request.getHeaders(it) as List}");
+      log.debug("param: ${it}");
     }
     request.getSession().getAttributeNames().each {
       log.debug("param: ${it} : ${request.getSession().getAttribute(it)}");

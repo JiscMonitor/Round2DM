@@ -10,37 +10,15 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
   def getPreAuthenticatedPrincipal(javax.servlet.http.HttpServletRequest request) {
 
     log.debug("ShibAuthFilter::getPreAuthenticatedPrincipal ${request}");
-    request.getAttributeNames().each {
-      log.debug("attr: ${it} : ${request.getAttribute(it)}");
-    }
-    request.getParameterNames().each {
-      log.debug("param: ${it} : ${request.getParameter(it)}");
-    }
-    log.debug("Headers..");
-    request.getHeaderNames().each {
-      log.debug("param: ${it}");
-    }
-    request.getSession().getAttributeNames().each {
-      log.debug("param: ${it} : ${request.getSession().getAttribute(it)}");
-    }
-
-
     def result
 
     if ( grailsApplication?.config?.authmethod=='shib' ) {
-      log.debug("Checking shib auth..");
-
-      // This should get hold of the 
-      def preauth_info = SecurityContextHolder.getContext().getAuthentication()
-      log.debug("PreauthInfo: ${preauth_info}");
 
       if ( request.getRemoteUser() != null ) {
-        log.debug("In shibboleth authentication mode. If we're here - the user is pre-authenticated. Extract username and make sure there is a user record");
-        // User ID should be in request.getAttribute('persistent-id');
-        log.debug("Remote User(fn):: ${request.getRemoteUser()} (class: ${request.getRemoteUser()?.class?.name})");
-        log.debug("User Principal:: ${request.getUserPrincipal()} (class: ${request.getUserPrincipal()?.class?.name})");
 
-        // Hmm.. interesting.. Persistent-id does not appear in the list of attrs above...
+        log.debug("In shibboleth authentication mode. If we're here - the user is pre-authenticated. Extract username and make sure there is a user record");
+
+        // Hmm.. Remember that in tomcat getAttributeNames does not return certain scoped attrs - which messes with my head!
         log.debug("Persistent Id:: ${request.getAttribute('persistent-id')}");
 
         def tst_attrs = [ 'persistent-id', 
@@ -53,15 +31,22 @@ public class ShibAuthFilter extends org.springframework.security.web.authenticat
                       'Shib-Session-ID', 
                       'Shib-AuthnContext-Class', 
                       'Shib-Application-ID', 
-                      'unscoped-affiliation'
+                      'unscoped-affiliation',
+                      'primary-affiliation',
+                      'entitlement',
+                      'targeted-id',
+                      'primary-orgunit-dn',
+                      'orgunit-dn',
+                      'org-dn',
+                      'cn',
+                      'employeeNumber',
+                      'displayName',
+                      'description'
                     ]
         tst_attrs.each { it ->
           log.debug("tst:: ${it} : ${request.getAttribute(it)}");
         }
    
-        log.debug("Remote User:: ${request.getAttribute('REMOTE_USER')} (class: ${request.getAttribute('REMOTE_USER')?.class?.name})");
-  
-
         AuthCommonUser.withTransaction { status ->
           def existing_user = AuthCommonUser.findByUsername(request.getRemoteUser())
           if ( existing_user ) {

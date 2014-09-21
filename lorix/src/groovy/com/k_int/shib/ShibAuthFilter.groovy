@@ -1,7 +1,7 @@
 package com.k_int.shib
 
 import uk.ac.jisc.lorix.*
-import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolder
 
 public class ShibAuthFilter extends org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter {
 

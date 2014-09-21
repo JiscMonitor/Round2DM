@@ -138,6 +138,12 @@ log4j.main = {
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'uk.ac.jisc.lorix.AuthCommonUser'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'uk.ac.jisc.lorix.AuthCommonUserAuthCommonRole'
 grails.plugin.springsecurity.authority.className = 'uk.ac.jisc.lorix.AuthCommonRole'
+grails.plugin.springsecurity.shibboleth.principalUsername.attribute = 'eppn'  // Taken from UK Federation attribute-map.xml
+grails.plugin.springsecurity.shibboleth.username.attribute = 'eppn'  // Taken from UK Federation attribute-map.xml
+grails.plugin.springsecurity.shibboleth.email.attribute = 'mail'
+grails.plugin.springsecurity.shibboleth.fullname.attribute = 'givenname'
+grails.plugin.springsecurity.shibboleth.extraAttributes = [ 'affiliation', 'uid', 'Shib-Session-Index', 'Shib-Session-ID', 'Shib-AuthnContext-Class', 'Shib-Application-ID', 'unscoped-affiliation' ]
+
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],

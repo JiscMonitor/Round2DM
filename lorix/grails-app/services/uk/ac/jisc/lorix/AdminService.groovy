@@ -48,6 +48,22 @@ class AdminService {
               if ( it.text().endsWith('.ac.uk') ) {
                 log.debug("Scope: ${it} ${ed.Organization?.OrganizationName?.text()} ${ed.Organization?.OrganizationDisplayName?.text()} ${ed.Organization?.OrganizationURL?.text()}");
               
+                // A scope represents an identifier for an organisation
+                def matched_by_scope = Organisation.findByIdentifier('shibScope',it)
+
+                if ( matched_by_scope.size() == 0 ) {
+                  // Need to add - the question now becomes - do we already have this org
+                  def matched_by_shib_id = Organisation.findByIdentifier('shibId',it)
+                  if ( matched_by_shib_id.size() == 0 ) {
+                    log.debug("New org with this scope");
+                  }
+                  else {
+                    log.debug("Add scope to existing org");
+                  }
+                }
+                else {
+                  log.debug("Matched existing org with scope");
+                }
               }
             }
           }

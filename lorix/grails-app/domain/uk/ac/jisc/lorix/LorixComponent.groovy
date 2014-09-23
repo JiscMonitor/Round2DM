@@ -206,4 +206,13 @@ abstract class LorixComponent {
     }
   }
 
+
+  def findByIdentifier(namespace,value) {
+    // Do we know of such an identifier?
+    def identifier = Identifier.lookupOrCreateCanonicalIdentifier(namespace, value)
+
+    // Find any component attached to this identifier
+    LorixComponent.executeQuery('select c.fromComponent from Combo as c where c.toComponent = :id and c.rel=:rel',[id:identifier, rel:'hasId'])
+  }
+
 }

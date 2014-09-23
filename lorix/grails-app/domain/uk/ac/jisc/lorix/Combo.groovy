@@ -1,7 +1,9 @@
 package uk.ac.jisc.lorix
 
 class Combo {
-  
+ 
+  String rel
+ 
   // All Combos should have a start date.
   Date startDate = new Date()
   
@@ -19,6 +21,7 @@ class Combo {
            version column:'combo_version'
      fromComponent column:'combo_from_fk'       , index:'combo_from_idx'
        toComponent column:'combo_to_fk'         , index:'combo_to_idx'
+               rel column:'combo_rel'           , index:'combo_to_idx,combo_from_idx'
            endDate column:'combo_end_date'
          startDate column:'combo_start_date'
   }
@@ -26,6 +29,7 @@ class Combo {
   static constraints = {
     fromComponent(nullable:false, blank:false)
     toComponent(nullable:false, blank:false)
+    rel(nullable:false, blank:false)
     endDate(nullable:true, blank:false)
     startDate(nullable:true, blank:false)
   }

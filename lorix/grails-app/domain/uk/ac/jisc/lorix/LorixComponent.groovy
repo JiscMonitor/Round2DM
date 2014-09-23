@@ -16,25 +16,7 @@ import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty
 @Log4j
 abstract class LorixComponent {
 
-  static final String RD_STATUS         = "KBComponent.Status"
-  static final String STATUS_CURRENT       = "Current"
-  static final String STATUS_DELETED       = "Deleted"
-  static final String STATUS_EXPECTED       = "Expected"
-  static final String STATUS_RETIRED       = "Retired"
-
-  static final String RD_EDIT_STATUS      = "KBComponent.EditStatus"
-  static final String EDIT_STATUS_APPROVED    = "Approved"
-  static final String EDIT_STATUS_IN_PROGRESS  = "In Progress"
-  static final String EDIT_STATUS_REJECTED    = "Rejected"
-
   static auditable = true
-
-  private static refdataDefaults = [
-    "status"     : STATUS_CURRENT,
-    "editStatus"  : EDIT_STATUS_IN_PROGRESS
-  ]
-
-  private static final Map fullDefaultsForClass = [:]
 
   @Transient
   private def springSecurityService
@@ -94,11 +76,6 @@ abstract class LorixComponent {
    */
   Object lastUpdatedBy
 
-  /**
-   * The source for the record (Whatever it is)
-   */
-  Source source
-
   // Timestamps
   Date dateCreated
   Date lastUpdated
@@ -118,7 +95,6 @@ abstract class LorixComponent {
     version column:'lxc_version'
     name column:'lxc_name'
     normname column:'lxc_normname'
-    source column:'lxc_source_fk'
     status column:'lxc_status_rv_fk'
     shortcode column:'lxc_shortcode', index:'kbc_shortcode_idx'
     dateCreated column:'lxc_date_created'
@@ -133,7 +109,6 @@ abstract class LorixComponent {
     editStatus  (nullable:true, blank:false)
     reference  (nullable:true, blank:false)
     provenance  (nullable:true, blank:false)
-    source (nullable:true, blank:false)
   }
 
   /**
@@ -159,10 +134,10 @@ abstract class LorixComponent {
 
   static def incUntilUnique(name) {
     def result = name;
-    if ( KBComponent.findWhere([shortcode : (name)]) ) {
+    if ( LorixComponent.findWhere([shortcode : (name)]) ) {
       // There is already a shortcode for that identfier
       int i = 2;
-      while ( KBComponent.findWhere([shortcode : "${name}_${i}"]) ) {
+      while ( LorixComponent.findWhere([shortcode : "${name}_${i}"]) ) {
         i++
       }
       result = "${name}_${i}"
@@ -178,7 +153,7 @@ abstract class LorixComponent {
   static def refdataFind(params) {
     def result = [];
     def ql = null;
-    ql = KBComponent.findAllByNameIlike("${params.q}%",params)
+    ql = LorixComponent.findAllByNameIlike("${params.q}%",params)
 
     if ( ql ) {
       ql.each { t ->

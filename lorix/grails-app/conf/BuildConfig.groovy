@@ -90,5 +90,8 @@ grails.project.dependency.resolution = {
         compile ":spring-security-shibboleth-native-sp:2.0.0-RC2"
 
         compile ":font-awesome-resources:4.2.0.0"
+
+        compile ":rest:0.8"
+        compile ":audit-logging:1.0.1"
     }
 }

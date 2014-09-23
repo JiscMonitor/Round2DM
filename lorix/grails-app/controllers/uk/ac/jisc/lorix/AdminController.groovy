@@ -6,9 +6,6 @@ import grails.plugin.springsecurity.annotation.Secured
 import org.codehaus.groovy.grails.commons.GrailsClassUtils
 import grails.plugin.springsecurity.SpringSecurityUtils
 
-
-
-
 class AdminController {
 
   def springSecurityService

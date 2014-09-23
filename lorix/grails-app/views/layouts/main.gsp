@@ -120,7 +120,7 @@
                 <sec:ifAnyGranted roles="ROLE_ADMIN">
                   <li class="${params?.controller == "admin" ? 'active' : ''}"><a href="#"><i class="fa fa-wrench fa-fw"></i> Admin<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                      <li><g:link controller="admin" action="refreshFamData">Refresh FAM Data</g:link></li>
+                      <li><g:link controller="admin" action="syncFederationData">Refresh FAM Data</g:link></li>
                       <li><g:link controller="home" action="about">About</g:link></li>
                       <li class="divider"></li>
                       <li><g:link controller="integration"><i class="fa fa-database fa-fw"></i> Integration API</g:link></li>

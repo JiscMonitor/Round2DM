@@ -26,7 +26,7 @@ class Organisation extends LorixComponent {
     def result = [];
     def ql = null;
 
-    def query = "from AuthCommonOrganisation as o where lower(o.displayName) like ?"
+    def query = "from Organisation as o where lower(o.displayName) like ?"
     def query_params = ["%${params.q.toLowerCase()}%"]
 
     if ( ( params.filter1 != null ) && ( params.filter1.length() > 0 ) ) {
@@ -34,7 +34,7 @@ class Organisation extends LorixComponent {
       query_params.add(Long.parseLong(params.filter1));
     }
 
-    ql = AuthCommonOrganisation.findAll(query, query_params, params)
+    ql = Organisation.findAll(query, query_params, params)
 
     if ( ql ) {
       ql.each { id ->

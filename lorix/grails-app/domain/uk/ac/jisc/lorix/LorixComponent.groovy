@@ -7,6 +7,7 @@ import javax.persistence.Transient
 
 import org.codehaus.groovy.grails.commons.GrailsDomainClass
 import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty
+import com.k_int.GOKbTextUtils
 
 
 /**
@@ -14,7 +15,7 @@ import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty
  */
 
 @Log4j
-abstract class LorixComponent {
+public abstract class LorixComponent {
 
   static auditable = true
 
@@ -179,9 +180,6 @@ abstract class LorixComponent {
     generateShortcode()
     generateNormname()
 
-    // Ensure any defaults defined get set.
-    ensureDefaults()
-
   }
 
   def afterInsert() {
@@ -207,7 +205,7 @@ abstract class LorixComponent {
   }
 
 
-  def findByIdentifier(namespace,value) {
+  static def componentsByIdentifier(namespace, value) {
     // Do we know of such an identifier?
     def identifier = Identifier.lookupOrCreateCanonicalIdentifier(namespace, value)
 

@@ -15,7 +15,7 @@ class Identifier extends LorixComponent {
         value column:'id_value', index:'id_value_idx'
   }
 
-  static def lookupOrCreateCanonicalIdentifier(ns, value) {
+  static def lookupOrCreateCanonicalIdentifier(String ns, String value) {
     def identifier = null;
     if ( ( ns != null ) && ( value != null ) ) {
       def namespace = IdentifierNamespace.findByValue(ns) ?: new IdentifierNamespace(value:ns).save(failOnError:true);

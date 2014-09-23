@@ -3,7 +3,7 @@ package uk.ac.jisc.lorix
 // Derived from https://github.com/ianibo/CommonAuthModelPlugin for quick prototype
 
 
-class AuthCommonOrganisation extends AuthCommonParty {
+class Organisation extends LorixComponent {
 
   RefdataValue status
   String shortcode

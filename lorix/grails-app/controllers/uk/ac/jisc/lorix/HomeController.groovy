@@ -32,13 +32,13 @@ class HomeController {
     else {
       def default_location = null
       user.affiliations.each {
-        if ( ( it.userHome == True ) && ( it.status.value == 'approved' ) ) {
+        if ( ( it.userHome == Boolean.TRUE ) && ( it.status.value == 'approved' ) ) {
           default_location = it.org
         }
       }
 
       if ( default_location ) {
-        redirect(controller:'org', action:'home')
+        redirect(controller:'org', action:'home', params: [shortcode:default_location.shortcode])
       }
       else {
         flash.message="Please nominate a home(Default) institutional affiliation";

@@ -26,8 +26,27 @@ class HomeController {
   def index() { 
     def user = springSecurityService.getCurrentUser()
     if ( ( user.affiliations.size() == 0 ) || ( user.displayName == null ) || ( user.displayName.length() == 0 ) ) {
+      flash.message="Please request an institutional affiliation";
       redirect(controller:'user', action:'profile');
     }
+    else {
+      def default_location = null
+      user.affiliations.each {
+        if ( ( it.userHome == True ) && ( it.status.value == 'approved' ) ) {
+          default_location = it.org
+        }
+      }
+
+      if ( default_location ) {
+        redirect(controller:'org', action:'home')
+      }
+      else {
+        flash.message="Please nominate a home(Default) institutional affiliation";
+        redirect(controller:'user', action:'profile');
+      }
+
+    }
+
   }
 
   @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])

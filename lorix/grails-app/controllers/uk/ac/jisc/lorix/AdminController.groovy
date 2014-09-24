@@ -18,5 +18,6 @@ class AdminController {
   @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
   def syncFederationData() { 
     adminService.syncFederationData();
+    redirect(controller:'home',action:'index')
   }
 }

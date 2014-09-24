@@ -38,31 +38,65 @@ class AdminService {
         }
 
         println("Processing...");
+        def current_status = RefdataCategory.lookupOrCreate('status', 'current')
+
         if ( ukfam ) {
           ukfam.EntityDescriptor.each { ed ->
-            ed.Extensions?.Scope?.each {
+            ed.Extensions?.Scope?.each { scope_from_file ->
               // println("ID: ${ed.@ID.text()}")
               // println("OrgName: ${ed.Organization?.OrganizationName?.text()}")
               // println("Display: ${ed.Organization?.OrganizationDisplayName?.text()}")
               // println("URL: ${ed.Organization?.OrganizationURL?.text()}")
-              if ( it.text().endsWith('.ac.uk') ) {
-                log.debug("Scope: ${it} ${ed.Organization?.OrganizationName?.text()} ${ed.Organization?.OrganizationDisplayName?.text()} ${ed.Organization?.OrganizationURL?.text()}");
+              if ( scope_from_file.text().endsWith('.ac.uk') ) {
+                log.debug("Scope: ${scope_from_file} ${ed.Organization?.OrganizationName?.text()} ${ed.Organization?.OrganizationDisplayName?.text()} ${ed.Organization?.OrganizationURL?.text()}");
               
-                // A scope represents an identifier for an organisation
-                def matched_by_scope = Organisation.componentsByIdentifier('shibScope',it.text().toString())
+                Organisation.withNewTransaction {
+                  // A scope represents an identifier for an organisation
+                  def matched_by_scope = Organisation.componentsByIdentifier('shibScope',scope_from_file.text().toString())
 
-                if ( matched_by_scope.size() == 0 ) {
-                  // Need to add - the question now becomes - do we already have this org
-                  def matched_by_shib_id = Organisation.componentsByIdentifier('shibId',ed.@ID.text().toString())
-                  if ( matched_by_shib_id.size() == 0 ) {
-                    log.debug("New org with this scope");
+                  try {
+                    if ( matched_by_scope.size() == 0 ) {
+                      log.debug("None matched by scope...");
+  
+                      // Need to add - the question now becomes - do we already have this org
+                      def matched_by_shib_id = Organisation.componentsByIdentifier('shibId',ed.@ID.text().toString())
+  
+                      if ( matched_by_shib_id.size() == 0 ) {
+                        log.debug("New org with this scope");
+                        def new_org = new Organisation(name:ed.Organization?.OrganizationName?.text(), 
+                                                       reference:ed.@ID.text(),
+                                                       url:ed.Organization?.OrganizationURL?.text(),
+                                                       status:current_status
+                                                       )
+                        log.debug("saving....");
+                        if ( new_org.save() ) {
+                          log.debug("New org saved OK..");
+                        }
+                        else {
+                          log.debug("Problem creating new org.. ${new_org.errors}");
+                        }
+  
+                        def fam_id = Identifier.lookupOrCreateCanonicalIdentifier('shibId', ed.@ID.text())
+                        def fam_id_combo = new Combo(fromComponent:new_org, toComponent:fam_id, rel:'hasId').save()
+                        def scope_id = Identifier.lookupOrCreateCanonicalIdentifier('shibScope', scope_from_file.text().toString())
+                        def fam_scope_combo = new Combo(fromComponent:new_org, toComponent:scope_id, rel:'hasId').save(flush:true)
+                      }
+                      else {
+                        log.debug("Add scope to existing org");
+                        def scope_id = Identifier.lookupOrCreateCanonicalIdentifier('shibScope', scope_from_file.text().toString())
+                        def fam_scope_combo = new Combo(fromComponent:matched_by_shib_id.get(0), toComponent:scope_id, rel:'hasId').save()
+                      }
+                    }
+                    else {
+                      log.debug("Matched existing org with scope");
+                    }
                   }
-                  else {
-                    log.debug("Add scope to existing org");
+                  catch ( Exception e ) {
+                    log.error("Problem",e);
                   }
-                }
-                else {
-                  log.debug("Matched existing org with scope");
+                  finally {
+                    log.debug("done");
+                  }
                 }
               }
             }

@@ -134,12 +134,14 @@ public abstract class LorixComponent {
   }
 
   static def incUntilUnique(name) {
+    log.debug("incUntilUnique(${name})");
     def result = name;
     if ( LorixComponent.findWhere([shortcode : (name)]) ) {
       // There is already a shortcode for that identfier
       int i = 2;
       while ( LorixComponent.findWhere([shortcode : "${name}_${i}"]) ) {
         i++
+        log.debug("incUntilUnique.... ${i}");
       }
       result = "${name}_${i}"
     }
@@ -166,6 +168,7 @@ public abstract class LorixComponent {
   }
 
   protected def generateNormname () {
+    log.debug("generateNormname");
 
     // Get the norm_name
     def nname = GOKbTextUtils.normaliseString(name);
@@ -175,6 +178,7 @@ public abstract class LorixComponent {
   }
 
   def beforeInsert() {
+    log.debug("beforeInsert");
 
     // Generate the any necessary values.
     generateShortcode()
@@ -192,6 +196,7 @@ public abstract class LorixComponent {
   }
 
   def beforeUpdate() {
+    log.debug("beforeUpdate");
     if ( name ) {
       if ( !shortcode ) {
         shortcode = generateShortcode(name);

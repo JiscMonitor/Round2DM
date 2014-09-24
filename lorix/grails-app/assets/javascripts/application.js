@@ -8,8 +8,6 @@
 //= require jquery
 //= require bootstrap
 //= require sb-admin-2
-//= require_tree
-//= require_self
 
 if (typeof jQuery !== 'undefined') {
 	(function($) {

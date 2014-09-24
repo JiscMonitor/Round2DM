@@ -51,6 +51,23 @@
         <div class="col-md-6">
           <div class="well">
             <h3>Request new membership</h3>
+            <dl class="dl-horizontal">
+              <dt> Institution </dt>
+              <dd> <g:select name="ins" from="${uk.ac.jisc.lorix.Organisation.listOrderByName()}" optionKey="id" optionValue="name"/> </dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt> Role </dt>
+              <dd> 
+                <select name="role">
+                  <option value="admin">Admin</option>
+                  <option value="researcher">Researcher</option>
+                </select>
+              </dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt></dt>
+              <dd> <button type="submit" class="btn btn-success"> Request </button> </dd>
+            </dl>
           </div>
         </div>
       </div>

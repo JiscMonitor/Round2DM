@@ -17,5 +17,8 @@ class AuthCommonAffiliation {
   }
 
   static constraints = {
+    userHome nullable:true, blank:false
+    dateRequested nullable:true, blank:false
+    dateActioned nullable:true, blank:false
   }
 }

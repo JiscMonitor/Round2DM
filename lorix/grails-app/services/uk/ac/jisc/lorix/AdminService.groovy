@@ -50,7 +50,6 @@ class AdminService {
               if ( scope_from_file.text().endsWith('.ac.uk') ) {
                 log.debug("Scope: ${scope_from_file} ${ed.Organization?.OrganizationName?.text()} ${ed.Organization?.OrganizationDisplayName?.text()} ${ed.Organization?.OrganizationURL?.text()}");
               
-                Organisation.withNewTransaction {
                   // A scope represents an identifier for an organisation
                   def matched_by_scope = Organisation.componentsByIdentifier('shibScope',scope_from_file.text().toString())
 
@@ -97,7 +96,6 @@ class AdminService {
                   finally {
                     log.debug("done");
                   }
-                }
               }
             }
           }

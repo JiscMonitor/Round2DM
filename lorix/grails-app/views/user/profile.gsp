@@ -29,7 +29,7 @@
                   <th>Organisation</th>
                   <th>Role</th>
                   <th>Status</th>
-                  <th>Date Requested / Actioned</th>
+                  <th>Date Requested / <br/>Date Actioned</th>
                   <th>Home?</th>
                   <th>Actions</th>
               </thead>
@@ -39,9 +39,13 @@
                     <td>${a.org.name}</td>
                     <td>${a.role.value}</td>
                     <td>${a.status.value}</td>
-                    <td>${a.dateRequested} / ${a.dateActioned}</td>
-                    <td>${a.org.userHome?'Yes':''}</td>
-                    <td></td>
+                    <td><g:formatDate date="${a.dateRequested}" format="yyyy-MM-dd"/> / <br/><g:formatDate date="${a.dateActioned}" format="yyyy-MM-dd"/></td>
+                    <td>${a.userHome?'Yes':''}</td>
+                    <td>
+                      <g:if test="${!(a.userHome) && (a.status.value=='approved')}">
+                        <g:link controller="user" action="makeHome" id="${a.id}" class="btn btn-success">Make Default</g:link>
+                      </g:if>
+                    </td>
                   </tr>
                 </g:each>
               </tbody>
@@ -50,24 +54,26 @@
         </div>
         <div class="col-md-6">
           <div class="well">
-            <h3>Request new membership</h3>
-            <dl class="dl-horizontal">
-              <dt> Institution </dt>
-              <dd> <g:select name="ins" from="${uk.ac.jisc.lorix.Organisation.listOrderByName()}" optionKey="id" optionValue="name"/> </dd>
-            </dl>
-            <dl class="dl-horizontal">
-              <dt> Role </dt>
-              <dd> 
-                <select name="role">
-                  <option value="admin">Admin</option>
-                  <option value="researcher">Researcher</option>
-                </select>
-              </dd>
-            </dl>
-            <dl class="dl-horizontal">
-              <dt></dt>
-              <dd> <button type="submit" class="btn btn-success"> Request </button> </dd>
-            </dl>
+            <g:form action="processRequestAffiliation">
+              <h3>Request new membership</h3>
+              <dl class="dl-horizontal">
+                <dt> Institution </dt>
+                <dd> <g:select name="org" from="${uk.ac.jisc.lorix.Organisation.listOrderByName()}" optionKey="id" optionValue="name"/> </dd>
+              </dl>
+              <dl class="dl-horizontal">
+                <dt> Role </dt>
+                <dd> 
+                  <select name="role">
+                    <option value="admin">Admin</option>
+                    <option value="researcher">Researcher</option>
+                  </select>
+                </dd>
+              </dl>
+              <dl class="dl-horizontal">
+                <dt></dt>
+                <dd> <button type="submit" class="btn btn-success"> Request </button> </dd>
+              </dl>
+            </g:form>
           </div>
         </div>
       </div>

@@ -31,7 +31,12 @@ class AuthCommonUser extends AuthCommonParty {
   }
 
   static hasMany = [
-    oAuthIDs : AuthCommonOAuthId
+    oAuthIDs : AuthCommonOAuthId,
+    affiliations: AuthCommonAffiliation
+  ]
+
+  static mappedBy = [
+    affiliations: 'user'
   ]
 
   static mapping = {

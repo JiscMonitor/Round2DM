@@ -24,8 +24,10 @@ class HomeController {
 
   @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
   def index() { 
-    log.debug("Current user: ${springSecurityService.getCurrentUser()}");
-    log.debug(request)
+    def user = springSecurityService.getCurrentUser()
+    if ( ( user.affiliations.size() == 0 ) || ( user.displayName == null ) || ( user.displayName.length() == 0 ) ) {
+      redirect(controller:'user', action:'profile');
+    }
   }
 
   @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])

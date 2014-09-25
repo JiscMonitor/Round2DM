@@ -1,0 +1,11 @@
+[
+  type:'tabs',
+  components:[
+    type:'tab',
+    components:[
+      [
+        [ type: 'textField', property:'title' ]
+      ]
+    ]
+  ]
+]

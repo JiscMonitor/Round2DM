@@ -67,4 +67,26 @@ class BootStrap {
     }
   }
 
+
+  def loadSystemDefinedLayouts() {
+    try {
+      Resource r = ctx.getResource("/WEB-INF/layouts");
+      def f = r.getFile();
+      log.debug("got layouts dir: ${f}");
+
+      // see http://groovy.dzone.com/news/class-loading-fun-groovy for info on the strategy being used here
+
+      if ( f.isDirectory() ) {
+        GroovyClassLoader gcl = new GroovyClassLoader();
+        log.debug("Using class loader: ${gcl.class.name}");
+
+        f.listFiles().each { layout_file ->
+          log.debug("Procesing ${handler_file}");
+        }
+      }
+    }
+    catch ( Exception e ) {
+      log.error("Problem loading system defined layouts",e);
+    }
+  }
 }

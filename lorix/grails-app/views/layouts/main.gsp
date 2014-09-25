@@ -35,7 +35,7 @@
               <span  class="icon-bar"></span>
           </button>
           <g:link uri="/" class="navbar-brand">
-            GOKb v<g:meta name="app.version" />
+            Local Research Info Exchange <g:meta name="app.version" />
           </g:link>
         </div>
         <!-- /.navbar-header -->
@@ -72,8 +72,10 @@
         <div class="navbar-default sidebar" role="navigation">
           <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
-              <li class="${params?.controller == "welcome"  ? 'active' : ''}"><g:link controller="welcome"><i class="fa fa-dashboard fa-fw"></i>
-                  My Dashboard</g:link></li>
+              <!--
+                <li class="${params?.controller == "welcome"  ? 'active' : ''}"><g:link controller="welcome"><i class="fa fa-dashboard fa-fw"></i> My Dashboard</g:link></li>
+              -->
+              <li class="${params?.controller == "home"  ? 'active' : ''}"><g:link controller="home"><i class="fa fa-home fa-fw"></i> Home</g:link></li>
               
               <sec:ifLoggedIn>
                 <li class="${params?.controller == "search" || params?.controller == "globalSearch"  ? 'active' : ''}"><a href="#"><i class="fa fa-search fa-fw"></i>Search<span class="fa arrow"></span></a>
@@ -103,27 +105,12 @@
                     </g:each>
                   </ul> <!-- /.nav-second-level --></li>
   
-                <li class="${params?.controller == "create" ? 'active' : ''}"><a href="#"><i class="fa fa-plus fa-fw"></i>
-                    Create<span class="fa arrow"></span></a>
-                  <ul class="nav nav-second-level">
-  
-                    <g:each in="${session.userPereferences?.createMenu}" var="d">
-                      <li><g:link controller="create" action="index" title="New ${d.displayName}"
-                        params="${[tmpl:d.dcName]}"><i class="fa fa-angle-double-right fa-fw"></i> ${d.displayName}</g:link></li>
-                    </g:each>
-  
-                  </ul> <!-- /.nav-second-level --></li>
-  
-                <li><g:link controller="coreference" action="index"><i class="fa fa-list-alt fa-fw"></i> Coreference</g:link></li>
-  
                 <sec:ifAnyGranted roles="ROLE_ADMIN">
                   <li class="${params?.controller == "admin" ? 'active' : ''}"><a href="#"><i class="fa fa-wrench fa-fw"></i> Admin<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                       <li><g:link controller="admin" action="syncFederationData">Refresh FAM Data</g:link></li>
                       <li><g:link controller="admin" action="approvePendingAssociations">Approve Affiliations</g:link></li>
                       <li><g:link controller="home" action="about">About</g:link></li>
-                      <li class="divider"></li>
-                      <li><g:link controller="integration"><i class="fa fa-database fa-fw"></i> Integration API</g:link></li>
                     </ul></li>
                 </sec:ifAnyGranted>
   

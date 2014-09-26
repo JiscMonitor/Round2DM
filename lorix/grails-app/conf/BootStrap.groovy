@@ -2,12 +2,18 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.SecurityFilterPosition
 
 import uk.ac.jisc.lorix.*
+import groovy.json.JsonSlurper
+import org.springframework.core.io.Resource;
+import org.springframework.context.ApplicationContext
+import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
 
 class BootStrap {
 
   def grailsApplication
 
   def init = { servletContext ->
+
+    ApplicationContext applicationContext = servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT)
     SpringSecurityUtils.clientRegisterFilter('shibAuthFilter', SecurityFilterPosition.PRE_AUTH_FILTER)
 
     def userRole = AuthCommonRole.findByAuthority('ROLE_USER') ?: new AuthCommonRole(authority: 'ROLE_USER', roleType:'global').save(failOnError: true)
@@ -16,6 +22,8 @@ class BootStrap {
     if ( grailsApplication.config.localauth ) {
       users()
     }
+
+    grailsApplication.config.globalLayouts = loadSystemDefinedLayouts(applicationContext)
   }
 
 
@@ -68,7 +76,10 @@ class BootStrap {
   }
 
 
-  def loadSystemDefinedLayouts() {
+  def loadSystemDefinedLayouts(ctx) {
+
+    def result = [:]
+
     try {
       Resource r = ctx.getResource("/WEB-INF/layouts");
       def f = r.getFile();
@@ -81,12 +92,19 @@ class BootStrap {
         log.debug("Using class loader: ${gcl.class.name}");
 
         f.listFiles().each { layout_file ->
-          log.debug("Procesing ${handler_file}");
+          log.debug("Procesing ${layout_file}");
+          // Parse JSON files and load
+          def slurper = new JsonSlurper()
+          def layout = slurper.parse(layout_file,'UTF-8')
+          result[layout.shortcode] = layout
         }
       }
     }
     catch ( Exception e ) {
       log.error("Problem loading system defined layouts",e);
     }
+
+    log.debug("systemMayouts: ${result}");
+    result
   }
 }

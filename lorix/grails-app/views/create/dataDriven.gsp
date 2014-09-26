@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <g:form class="form-horizontal" role="form" controller="create" action="process">
-    <input type="hidden" name="_clazz" value="${ctxClazz}"/>
+    <input type="hidden" name="__clazz" value="${ctxClazz.name}"/>
+    <input type="hidden" name="__view" value="${params.view}"/>
     <g:render contextPath="../forms" 
               template="container" 
               model="${[components:layoutDefinition.rootContainer, ctxObject:ctxObject, parentPath:'']}" />

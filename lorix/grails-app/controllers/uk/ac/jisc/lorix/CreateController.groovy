@@ -1,10 +1,19 @@
 package uk.ac.jisc.lorix
 
+import grails.converters.*
+import grails.plugin.springsecurity.annotation.Secured
+import org.codehaus.groovy.grails.commons.GrailsClassUtils
+import grails.plugin.springsecurity.SpringSecurityUtils
+
 class CreateController {
 
   def grailsApplication
+  def springSecurityService
 
+  @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
   def inline() { 
+
+    log.debug("Inline...${params}");
 
     def result = [:]
     result.ctxClazz = Class.forName(params.cls)
@@ -19,6 +28,37 @@ class CreateController {
         result.layoutDefinition = grailsApplication.config.globalLayouts[params.view]
         render(view:'dataDriven',model:result)
         break;
+    }
+  }
+
+  @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
+  def process() {
+    log.debug("Process ${params}");
+
+    def result=[:]
+    def formctx=''
+    def class_to_create = params[formctx+'__clazz']
+    def layoutDefinition = grailsApplication.config.globalLayouts[params.'__view']
+
+    if ( class_to_create != null ) {
+      log.debug("Create instance of \"${class_to_create}\"");
+      def ctxClazz = Class.forName(class_to_create)
+      def ctxObject = ctxClazz.newInstance()
+
+      // Iterate through definition, loading fields and setting as appropriate
+      populate(ctxObject, layoutDefinition.rootContainer)
+    }
+
+    result
+  }
+
+  private def populate(obj, defn) {
+    defn.each { component ->
+      switch ( component.type ) {
+        case 'textField':
+          log.debug("text field....");
+          break;
+      }
     }
   }
 }

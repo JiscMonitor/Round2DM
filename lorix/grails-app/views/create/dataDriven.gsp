@@ -1,7 +1,9 @@
 Render a data driven inline form
 <div class="container">
   <g:form class="form-horizontal" role="form" controller="create" action="process">
-    <g:render template="${params.view}" model="${[:]}" />
+    <pre>
+      ${layoutDefinition}
+    </pre>
   </g:form>
 </div>
 

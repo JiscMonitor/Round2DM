@@ -8,7 +8,7 @@
 
     <p>Before</p>
 
-    <g:include controller="create" action="inline" params="${[templateType:'dataDriven',view:'researchOutput',cls:'a.b.c']}"/>
+    <g:include controller="create" action="inline" params="${[templateType:'dataDriven',view:'g:Research_Output',cls:'a.b.c']}"/>
 
     <p>After</p>
 

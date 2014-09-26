@@ -5,7 +5,11 @@ class CreateController {
   def grailsApplication
 
   def inline() { 
+
     def result = [:]
+    result.ctxClazz = Class.forName(params.cls)
+    result.ctxObject = result.ctxClazz.newInstance()
+
     switch ( params.templateType ) {
       case 'static' :
         render(view:params.view, model:result)

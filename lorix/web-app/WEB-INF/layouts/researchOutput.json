@@ -2,6 +2,6 @@
   "layoutName":"Research Output",
   "shortcode":"g:Research_Output",
   "rootContainer": [
-    { "type": "textField", "labelWidth":6, "valueWidth":6, "property":"title" }
+    { "type": "textField", "labelWidth":2, "valueWidth":10, "property":"name", "prompt.message":"", "label.message":"RO.title" }
   ]
 }

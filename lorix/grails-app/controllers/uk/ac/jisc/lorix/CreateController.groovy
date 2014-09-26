@@ -18,6 +18,7 @@ class CreateController {
     def result = [:]
     result.ctxClazz = Class.forName(params.cls)
     result.ctxObject = result.ctxClazz.newInstance()
+    result.onSuccess = params.onSuccess
 
     switch ( params.templateType ) {
       case 'static' :
@@ -46,17 +47,24 @@ class CreateController {
       def ctxObject = ctxClazz.newInstance()
 
       // Iterate through definition, loading fields and setting as appropriate
-      populate(ctxObject, layoutDefinition.rootContainer)
+      populate('', ctxObject, layoutDefinition.rootContainer)
     }
 
-    result
+    if ( params.__onSuccess ) {
+      log.debug("Redirect to url:: ${params.__onSuccess}");
+      redirect(url:params.__onSuccess)
+    }
+    else {
+      redirect(controller:'home');
+    }
   }
 
-  private def populate(obj, defn) {
+  private def populate(ctx, obj, defn) {
     defn.each { component ->
       switch ( component.type ) {
         case 'textField':
-          log.debug("text field....");
+          log.debug("text field.... ${ctx} ${component.property} = ${params[ctx + component.property]}"); 
+          obj[component.property] = params[ctx + component.property]
           break;
       }
     }

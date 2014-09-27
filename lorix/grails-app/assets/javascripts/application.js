@@ -10,11 +10,23 @@
 //= require sb-admin-2
 
 if (typeof jQuery !== 'undefined') {
-	(function($) {
-		$('#spinner').ajaxStart(function() {
-			$(this).fadeIn();
-		}).ajaxStop(function() {
-			$(this).fadeOut();
-		});
-	})(jQuery);
+  (function($) {
+
+    $(document).ready(function(){
+
+      $('.popupRefdata').click(function() {
+          alert('ho ho ho');
+      });
+
+    });
+
+    $('#spinner').ajaxStart(function() {
+      $(this).fadeIn();
+    }).ajaxStop(function() {
+      $(this).fadeOut();
+    });
+
+  })(jQuery);
 }
+
+

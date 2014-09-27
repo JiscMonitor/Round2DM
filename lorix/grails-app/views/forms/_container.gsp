@@ -1,4 +1,5 @@
 <g:each in="${components}" var="component">
+
   <g:if test="${component.type=='textField'}">
     <div class="form-group">
       <label class="col-sm-${component.labelWidth?:2} control-label" for="${parentPath}${component.property}"><g:message code="${component.'label.message'}"/></label>
@@ -11,6 +12,7 @@
       </div>
     </div>
   </g:if>
+
   <g:if test="${component.type=='refdataLookup'}">
     <div class="form-group">
       <label class="col-sm-${component.labelWidth?:2} control-label" for="${parentPath}${component.property}"><g:message code="${component.'label.message'}"/></label>
@@ -24,7 +26,9 @@
                  class="form-control" 
                  id="${parentPath}${component.property}" 
                  placeholder="${component.'placeholder.message'}"/>
-          <div class="input-group-addon">...</div>
+          <span class="input-group-btn">
+            <button class="btn btn-default popupRefdata" type="button" data-search='g:refdataSearch' data-create='g:refdataCreate'>...</button>
+          </span>
         </div>
       </div>
     </div>

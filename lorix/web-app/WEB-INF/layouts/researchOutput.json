@@ -2,6 +2,7 @@
   "layoutName":"Research Output",
   "shortcode":"g:Research_Output",
   "rootContainer": [
-    { "type": "textField", "labelWidth":2, "valueWidth":10, "property":"name", "prompt.message":"", "label.message":"RO.title" }
+    { "type": "textField", "labelWidth":2, "valueWidth":10, "property":"name", "prompt.message":"", "label.message":"RO.title" },
+    { "type": "refdataLookup", "labelWidth":2, "valueWidth":10, "property":"status", "label.message":"RO.status", "allowCreate":true, "searchDef":"g:refdata"}
   ]
 }

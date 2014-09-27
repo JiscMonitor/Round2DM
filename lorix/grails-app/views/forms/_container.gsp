@@ -11,4 +11,22 @@
       </div>
     </div>
   </g:if>
+  <g:if test="${component.type=='refdataLookup'}">
+    <div class="form-group">
+      <label class="col-sm-${component.labelWidth?:2} control-label" for="${parentPath}${component.property}"><g:message code="${component.'label.message'}"/></label>
+      <div class="col-sm-${component.valueWidth?:10}">
+        <!-- The hidden property contains the OID In fullyQualifiedClassName:Identifier format -->
+        <input type="hidden" name="${parentPath}${component.property}" value=""/>
+      
+        <div class="input-group">
+          <input name="${parentPath}${component.property}_asString" 
+                 type="text" 
+                 class="form-control" 
+                 id="${parentPath}${component.property}" 
+                 placeholder="${component.'placeholder.message'}"/>
+          <div class="input-group-addon">...</div>
+        </div>
+      </div>
+    </div>
+  </g:if>
 </g:each>

@@ -27,12 +27,14 @@
                  id="${parentPath}${component.property}" 
                  placeholder="${component.'placeholder.message'}"/>
           <span class="input-group-btn">
-            <button id="refdataSearch" class="btn btn-default popupRefdata" type="button" data-search='g:refdataSearch' data-create='g:refdataCreate'>...</button>
+            <button id="refdataSearch" 
+                    class="btn btn-default popupRefdata" 
+                    type="button" 
+                    data-toggle="modal" 
+                    data-target="#myModal"
+                    data-remote="${createLink(action:'index',controller:'refdata')}">...</button>
           </span>
         </div>
-
-        <a class="wibble">TestSpan</a>
-
       </div>
     </div>
   </g:if>

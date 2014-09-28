@@ -8,7 +8,16 @@
     <g:render contextPath="../forms" 
               template="container" 
               model="${[components:layoutDefinition.rootContainer, ctxObject:ctxObject, parentPath:'']}" />
+
     <button class="btn btn-success pull-right" type="submit">Create</button>
+
   </g:form>
+</div>
+
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content"/>
+  </div>
 </div>
 

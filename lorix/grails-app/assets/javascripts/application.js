@@ -7,17 +7,12 @@
 //
 //= require jquery
 //= require bootstrap
-//= require sb-admin-2
 
 if (typeof jQuery !== 'undefined') {
-  (function($) {
+  $(function() {
 
-    $(document).ready(function(){
-
-      $('.popupRefdata').click(function() {
-          alert('ho ho ho');
-      });
-
+    $('.popupRefdata').click(function() {
+      alert('popupRefdataForm');
     });
 
     $('#spinner').ajaxStart(function() {

@@ -7,7 +7,6 @@
 //
 //= require jquery
 //= require bootstrap
-//= require angular.min
 
 if (typeof jQuery !== 'undefined') {
   $(function() {

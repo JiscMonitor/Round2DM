@@ -3,7 +3,7 @@
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js" ng-app><!--<![endif]-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -49,6 +49,7 @@
                 <i class="fa fa-caret-down fa-fw"></i>
             	</a>
               <ul class="dropdown-menu dropdown-user">
+                <li>Nothing here {{'yet' + '!'}}</li>
                 <li><g:link controller="user" action="profile"><i class="fa fa-user fa-fw"></i>  Profile</g:link></li>
                 <li><g:link controller="home" action="about"><i class="fa fa-info fa-fw"></i>  About GOKb</g:link></li>
                 <li class="divider"></li>

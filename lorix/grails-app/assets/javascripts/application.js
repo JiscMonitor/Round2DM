@@ -7,7 +7,8 @@
 //
 //= require jquery
 //= require bootstrap
-//= require angular.min
+//= require angular-1.3.0-rc.4/angular.min
+//= require kirwf
 
 if (typeof jQuery !== 'undefined') {
   $(function() {

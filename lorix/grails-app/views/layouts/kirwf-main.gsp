@@ -21,7 +21,7 @@
 
   </head>
 
-  <body>
+  <body ng-controller="KIRwfDesktop as desktop">
     <div id="wrapper">
       <!-- Navigation -->
       <nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -65,32 +65,7 @@
           <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
               <li class="${params?.controller == "home"  ? 'active' : ''}"><g:link controller="home"><i class="fa fa-home fa-fw"></i> Home</g:link></li>
-              
-                <li class="${params?.controller == "search" || params?.controller == "globalSearch"  ? 'active' : ''}"><a href="#"><i class="fa fa-search fa-fw"></i>Search<span class="fa arrow"></span></a>
-                  <ul class="nav nav-second-level">
-                    <li class="sidebar-search">
-                      <g:form controller="globalSearch" action="index" method="get">
-                        <label for="global-search" class="sr-only">Global Search</label>
-                        <div class="input-group custom-search-form">
-                          <input id="global-search" name="q" type="text" class="form-control" placeholder="Global Search...">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
-                              <i class="fa fa-search"></i>
-                            </button>
-                          </span>
-                        </div><!-- /input-group -->
-                      </g:form>
-                    </li>
-                    <li class="divider"></li>
-                  </ul> <!-- /.nav-second-level --></li>
-  
-                  <li class="${params?.controller == "admin" ? 'active' : ''}"><a href="#"><i class="fa fa-wrench fa-fw"></i> Admin<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                      <li><g:link controller="admin" action="syncFederationData">Refresh FAM Data</g:link></li>
-                      <li><g:link controller="admin" action="approvePendingAssociations">Approve Affiliations</g:link></li>
-                      <li><g:link controller="home" action="about">About</g:link></li>
-                    </ul></li>
-  
+              <li ng-repeat="item in desktop.currentFolder"> <a href=""><i ng-show="item.icon" class="fa {{item.icon}} fa-fw"></i> {{item.name}} </a></li>
             </ul>
           </div>
           <!-- /.sidebar-collapse -->

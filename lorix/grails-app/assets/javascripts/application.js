@@ -8,6 +8,7 @@
 //= require jquery
 //= require bootstrap
 //= require angular-1.3.0-rc.4/angular.min
+//= require ui-bootstrap-tpls-0.11.2.min
 //= require kirwf
 
 if (typeof jQuery !== 'undefined') {

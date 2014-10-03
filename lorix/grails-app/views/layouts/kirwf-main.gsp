@@ -65,7 +65,12 @@
           <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
               <li class="${params?.controller == "home"  ? 'active' : ''}"><g:link controller="home"><i class="fa fa-home fa-fw"></i> Home</g:link></li>
-              <li ng-repeat="item in desktop.currentFolder"> <a href=""><i ng-show="item.icon" class="fa {{item.icon}} fa-fw"></i> {{item.name}} </a></li>
+              <li>
+                <a href="">My Folder</a>
+                <ul class="nav nav-second-level">
+                  <li ng-repeat="item in currentFolder"> <a href="" ng-click="addWorkspace()"><i ng-show="item.icon" class="fa {{item.icon}} fa-fw"></i> {{item.name}} </a></li>
+                </ul>
+              </li>
             </ul>
           </div>
           <!-- /.sidebar-collapse -->

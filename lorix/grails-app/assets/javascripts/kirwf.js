@@ -3,9 +3,9 @@
 
   app.controller('KIRwfDesktop', function($scope) {
     $scope.tabs = [
-        { id:1, title:'One', content:'One Content', active:true },
-        { id:2, title:'Two', content:'Two Content', active:false },
-        { id:3, title:'Three', content:'Three Content', active:false }
+        { id:1, title:'One', content:'One Content', active:true, view:'/lorix/assets/partials/one.html' },
+        { id:2, title:'Two', content:'Two Content', active:false, view:'/lorix/assets/partials/two.html' },
+        { id:3, title:'Three', content:'Three Content', active:false, view:'/lorix/assets/partials/three.html' }
     ]
 
     var setAllInactive = function() {
@@ -20,7 +20,8 @@
               id: id,
               title: "Workspace " + id,
               active: true,
-              content: "This is a new tab..."
+              content: "This is a new tab...",
+              view:'/lorix/assets/partials/one.html'
           });
     };
  

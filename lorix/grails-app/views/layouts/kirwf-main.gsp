@@ -68,7 +68,7 @@
               <li>
                 <a href="">My Folder</a>
                 <ul class="nav nav-second-level">
-                  <li ng-repeat="item in currentFolder"> <a href="" ng-click="addWorkspace()"><i ng-show="item.icon" class="fa {{item.icon}} fa-fw"></i> {{item.name}} </a></li>
+                  <li ng-repeat="item in currentFolder"> <a href="" ng-click="addWorkspace(item.view)"><i ng-show="item.icon" class="fa {{item.icon}} fa-fw"></i> {{item.name}} </a></li>
                 </ul>
               </li>
             </ul>

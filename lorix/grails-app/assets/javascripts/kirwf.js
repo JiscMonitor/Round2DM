@@ -1,6 +1,10 @@
 (function() {
   var app = angular.module('kirwf',['ui.bootstrap']);
 
+  app.controller('KIObjectEditor', function($scope) {
+    $scope.someprop='hello';
+  });
+
   app.controller('KIRwfDesktop', function($scope) {
     $scope.tabs = [
         { id:1, title:'One', active:true, view:'/lorix/assets/partials/one.html' },

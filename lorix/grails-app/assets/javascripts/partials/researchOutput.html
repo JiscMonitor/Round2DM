@@ -1,17 +1,35 @@
 <h1>Research Output</h1>
-<div ng-controller="KIObjectEditor as objedit">
+<div ng-controller="KIObjectEditor as objedit" ng-init="init('uk.ac.jisc.lorix.ResearchOutput:NEW')">
   <form action="/lorix/activity/edit" method="post" class="form-horizontal" role="form">
-    <input type="hidden" name="root.__oid" value="uk.ac.jisc.lorix.ResearchOutput:NEW"/>
+    <input type="hidden" name="root.__oid" value="uk.ac.jisc.lorix.ResearchOutput:NEW" ng-model="root.__oid" />
+
     <div class="form-group">
       <label for="title" class="col-sm-2 control-label">Title </label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="root.title" name="root.name" placeholder="Title of work" ng-model="name">
+        <input type="text" class="form-control" id="root.title" name="root.name" placeholder="Title of work" ng-model="root.name">
       </div>
     </div>
+
+    <div class="form-group">
+      <label for="title" class="col-sm-2 control-label">Provenance </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="root.provenance" name="root.provenance" placeholder="Provenance" ng-model="root.provenance">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="title" class="col-sm-2 control-label">Reference </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="root.reference" name="root.reference" placeholder="Reference" ng-model="root.reference">
+      </div>
+    </div>
+
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-default">Save</button>
       </div>
     </div>
   </form>
+
+  Some scope variables.... oe: {{root}} 
 </div>

@@ -2,7 +2,12 @@
   var app = angular.module('kirwf',['ui.bootstrap']);
 
   app.controller('KIObjectEditor', function($scope) {
-    $scope.someprop='hello';
+    $scope.root={};
+    $scope.init = function(oid) {
+      $scope.root.__oid = oid;
+    }
+
+
   });
 
   app.controller('KIRwfDesktop', function($scope) {
@@ -24,13 +29,15 @@
               id: id,
               title: "Workspace " + id,
               active: true,
-              view: theview
+              view: theview,
+              root : {}
           });
     };
  
-    $scope.addWorkspace = function (theview) {
+    // Called to add to workspace, passes in config from currentFolder
+    $scope.addWorkspace = function (item) {
       setAllInactive();
-      addNewWorkspace(theview);
+      addNewWorkspace(item.view);
     };       
 
     var appState = {

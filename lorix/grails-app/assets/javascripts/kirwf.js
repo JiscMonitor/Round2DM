@@ -32,6 +32,9 @@
         });
     };
 
+    $scope.addNew = function(cls,prop) {
+      alert("addNew("+cls+","+prop+")");
+    }
   });
 
   app.controller('KIRwfDesktop', function($scope) {

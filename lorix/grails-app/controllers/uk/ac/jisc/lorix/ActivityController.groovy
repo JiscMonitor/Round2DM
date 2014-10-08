@@ -19,7 +19,23 @@ class ActivityController {
 
     process(result, oid_params)
 
-    log.debug("result.root = ${result.root}");
+    log.debug("result.root = ${result.root}.. calling bind data ${params}");
+
+    // Do databinding..
+    bindData(result.root, params, "root")
+
+    log.debug("After bind data result.root.name = ${result.root.name}");
+
+    result.saveResult = result.root.save(flush:true)
+    if ( result.saveResult ) {
+      log.debug("Save::OK");
+    }
+    else {
+      log.debug("Save::Error");
+      result.root.errors.each { 
+        log.debug("Problem: ${it}");
+      }
+    }
 
     redirect(controller:'home', action:'index');
   }

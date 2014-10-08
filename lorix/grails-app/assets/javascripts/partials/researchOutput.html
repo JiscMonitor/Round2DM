@@ -1,6 +1,7 @@
 <h1>Research Output</h1>
 <div ng-controller="KIObjectEditor as objedit">
-  <form class="form-horizontal" role="form">
+  <form action="/lorix/activity/edit" method="post" class="form-horizontal" role="form">
+    <input type="hidden" name="root.__oid" value="uk.ac.jisc.lorix.ResearchOutput:NEW"/>
     <div class="form-group">
       <label for="title" class="col-sm-2 control-label">Title </label>
       <div class="col-sm-10">

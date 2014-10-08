@@ -67,10 +67,44 @@ class ActivityController {
 
   @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
   def ngEdit() {
+
+    def result = [:]
+
     log.debug("ngEdit::${params}");
-    def jsonObject = request.JSON
-    log.debug("Post data: ${jsonObject}");
-    def result = [status:'OK']
+    def j = request.JSON
+    log.debug("Post data: ${j}");
+
+    processThree(j,'root',result)
+
+    result.status='OK'
     render result as JSON
+  }
+
+  // Look in sourceContext for element, and see if there is a corresponding thing in resultContext to set
+  // Assume we are the root of the object tree for now.
+  def processThree(sourceContext, element, resultContext) {
+
+    log.debug("test element ${element}");
+    if ( sourceContext[element] ) {
+      def oid = sourceContext[element].__oid
+      if ( oid ) {
+        def oid_parts = oid.split(':');
+        def domain_class = grailsApplication.getArtefact('Domain',oid_parts[0])
+        if ( oid_parts[1] == 'NEW' ) {
+          log.debug("creating new instance...${domain_class}");
+          def rslt = domain_class.getClazz().newInstance();
+          resultContext[element] = rslt
+        }
+        else {
+          log.debug("lookup existing context ${oid}");
+          resultContext[element] = domain_class.getClazz().get(oid_parts[1])
+        }
+
+        log.debug("Now do the properties......");
+        sourceContext[element].each { k, v ->
+          log.debug("Consider ${k} -> ${v}");
+        }
+      }
+    }
   }
 }

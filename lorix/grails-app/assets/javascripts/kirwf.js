@@ -1,12 +1,36 @@
 (function() {
   var app = angular.module('kirwf',['ui.bootstrap']);
 
-  app.controller('KIObjectEditor', function($scope) {
+  app.controller('KIObjectEditor', function($scope,$http) {
     $scope.root={};
     $scope.init = function(oid) {
       $scope.root.__oid = oid;
-    }
+    };
 
+    $scope.processForm = function() {
+      alert('processForm::'+lorixBaseUrl+'activity/ngEdit');
+
+      requestdata = {}
+      requestdata.root = $scope.root
+      $http({
+        method  : 'POST',
+        url     : lorixBaseUrl+'activity/ngEdit',
+        data    : requestdata  // Send JSON
+        // data    : $.param(requestdata),  // pass in data as strings
+        // headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+      })
+        .success(function(data) {
+             console.log(data);
+      //       if (!data.success) {
+      //       	// if not successful, bind errors to error variables
+      //           $scope.errorName = data.errors.name;
+      //           $scope.errorSuperhero = data.errors.superheroAlias;
+      //       } else {
+      //       	// if successful, bind success message to message
+      //           $scope.message = data.message;
+      //       }
+        });
+    };
 
   });
 
@@ -15,7 +39,7 @@
         { id:1, title:'One', active:true, view:'/lorix/assets/partials/one.html' },
         { id:2, title:'Two', active:false, view:'/lorix/assets/partials/two.html' },
         { id:3, title:'Three', active:false, view:'/lorix/assets/partials/three.html' }
-    ]
+    ];
 
     var setAllInactive = function() {
       angular.forEach($scope.tabs, function(workspace) {

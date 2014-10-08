@@ -5,6 +5,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import org.codehaus.groovy.grails.commons.GrailsClassUtils
 import grails.plugin.springsecurity.SpringSecurityUtils
 
+
 class ActivityController {
 
   def springSecurityService
@@ -64,4 +65,12 @@ class ActivityController {
     }
   }
 
+  @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
+  def ngEdit() {
+    log.debug("ngEdit::${params}");
+    def jsonObject = request.JSON
+    log.debug("Post data: ${jsonObject}");
+    def result = [status:'OK']
+    render result as JSON
+  }
 }

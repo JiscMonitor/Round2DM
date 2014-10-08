@@ -1,6 +1,6 @@
 <h1>Research Output</h1>
 <div ng-controller="KIObjectEditor as objedit" ng-init="init('uk.ac.jisc.lorix.ResearchOutput:NEW')">
-  <form action="/lorix/activity/edit" method="post" class="form-horizontal" role="form">
+  <form method="post" class="form-horizontal" role="form" ng-submit="processForm()">
     <input type="hidden" name="root.__oid" value="uk.ac.jisc.lorix.ResearchOutput:NEW" ng-model="root.__oid" />
 
     <div class="form-group">

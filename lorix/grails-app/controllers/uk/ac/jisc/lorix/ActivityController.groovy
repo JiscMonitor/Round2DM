@@ -75,26 +75,27 @@ class ActivityController {
     log.debug("Post data: ${j}");
 
     // Look in j for property 'root' and lookup or create based on root.__oid
-    result.root = lookupOrCreateReferenceProperty('root', j)
+    result.root = lookupOrCreateReferenceProperty(j.root)
     processThree(j.root,result.root)
 
     result.status='OK'
     render result as JSON
   }
 
-  def lookupOrCreateReferenceProperty(elementName, formPostData) {
+  def lookupOrCreateReferenceProperty(formPostData) {
     def result = null
-    if ( formPostData[elementName] ) {
-      def oid = formPostData[elementName].__oid
+    if ( formPostData.__oid ) {
+      def oid = formPostData.__oid
       if ( oid ) {
         def oid_parts = oid.split(':');
         //def domain_class = grailsApplication.getArtefact('Domain',oid_parts[0])
         def domain_class = grailsApplication.getDomainClass(oid_parts[0])
         if ( oid_parts[1] == 'NEW' ) {
-          log.debug("creating new instance...${domain_class}");
+          log.debug("creating new instance of ${oid_parts[0]}");
           result = domain_class.getClazz().newInstance();
         }
         else {
+          log.debug("referencing ${oid}");
           result = domain_class.getClazz().get(oid_parts[1])
         }
       }
@@ -145,9 +146,12 @@ class ActivityController {
       log.debug("child row: ${child_row_data}");
       if ( idx <= num_child_objects ) {
         log.debug("Already have a row at this position.. update");
+        // Should really check that __oid matches the id of the object in our hands...
       }
       else {
         log.debug("Adding a row to the collection property.. lookup or create depending on OID");
+        def new_child_object = lookupOrCreateReferenceProperty(child_row_data)
+        db_coll.add(new_child_object)
       }
       idx++
     }

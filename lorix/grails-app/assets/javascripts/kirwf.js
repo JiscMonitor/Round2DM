@@ -35,10 +35,10 @@
     $scope.addNew = function(cls,prop) {
       var listprop = eval("$scope."+prop);
       if ( listprop == null ) {
-        eval("$scope."+prop+"=[{\"oid\":'"+cls+":NEW'}]");
+        eval("$scope."+prop+"=[{\"__oid\":'"+cls+":NEW'}]");
       }
       else {
-        listprop.push({"oid":cls+':NEW'});
+        listprop.push({"__oid":cls+':NEW'});
       }
     }
   });

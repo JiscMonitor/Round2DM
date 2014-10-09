@@ -111,16 +111,41 @@ class ActivityController {
             if ( p.isAssociation() ) {
               log.debug("${k} is an association");
               if ( p.isOneToMany() ) {
-                log.debug("${k} is One to many");
-                v.each { cr ->
-                  log.debug("This should be a row of child objects.. ${cr}");
-                }
+                // Synchronize the data from the form post with the data in the DB, create, update and delete records as needed.
+                processOneToManyProperty(k, v, resultContext[element]);
               }
             }
-            
           }
         }
       }
     }
   }
+
+  def processOneToManyProperty(propName, valueFromPost, parentDBObject) {
+    log.debug("${propName} is One to many");
+    int idx=0;
+ 
+    // See if we need to initialise the local collection
+    if ( parentDBObject[propName] == null ) {
+      // Collection property is null - we need to initialise it
+      parentDBObject[propName] = []
+    }
+
+    // Grab the collection of persistent objects under this property
+    def db_coll = parentDBObject[propName]
+    int num_child_objects = db_coll.size();
+             
+    valueFromPost.each { child_row_data ->
+      log.debug("child row: ${child_row_data}");
+      if ( idx <= num_child_objects ) {
+        log.debug("Already have a row at this position.. update");
+      }
+      else {
+        log.debug("Adding a row to the collection property.. lookup or create depending on OID");
+      }
+      idx++
+    }
+  }
+
+
 }

@@ -74,46 +74,52 @@ class ActivityController {
     def j = request.JSON
     log.debug("Post data: ${j}");
 
-    processThree(j,'root',result)
+    // Look in j for property 'root' and lookup or create based on root.__oid
+    result.root = lookupOrCreateReferenceProperty('root', j)
+    processThree(j.root,result.root)
 
     result.status='OK'
     render result as JSON
   }
 
-  // Look in sourceContext for element, and see if there is a corresponding thing in resultContext to set
-  // Assume we are the root of the object tree for now.
-  def processThree(sourceContext, element, resultContext) {
-
-    log.debug("test element ${element}");
-    if ( sourceContext[element] ) {
-      def oid = sourceContext[element].__oid
+  def lookupOrCreateReferenceProperty(elementName, formPostData) {
+    def result = null
+    if ( formPostData[elementName] ) {
+      def oid = formPostData[elementName].__oid
       if ( oid ) {
         def oid_parts = oid.split(':');
         //def domain_class = grailsApplication.getArtefact('Domain',oid_parts[0])
         def domain_class = grailsApplication.getDomainClass(oid_parts[0])
         if ( oid_parts[1] == 'NEW' ) {
           log.debug("creating new instance...${domain_class}");
-          def rslt = domain_class.getClazz().newInstance();
-          resultContext[element] = rslt
+          result = domain_class.getClazz().newInstance();
         }
         else {
-          log.debug("lookup existing context ${oid}");
-          resultContext[element] = domain_class.getClazz().get(oid_parts[1])
+          result = domain_class.getClazz().get(oid_parts[1])
         }
+      }
+    }
+    result
+  }
 
-        log.debug("Now do the properties......");
-        sourceContext[element].each { k, v ->
-          log.debug("Consider ${k} -> ${v}");
-          // Is k a property in resultContext[element]? If so lets do the right thing by the kind of property
-          def p = domain_class.getPersistentProperty(k)  //  GrailsDomainClassProperty
-          if ( p ) {
-            log.debug("context has property ${k} :: ${p}");
-            if ( p.isAssociation() ) {
-              log.debug("${k} is an association");
-              if ( p.isOneToMany() ) {
-                // Synchronize the data from the form post with the data in the DB, create, update and delete records as needed.
-                processOneToManyProperty(k, v, resultContext[element]);
-              }
+  // Look in sourceContext for element, and see if there is a corresponding thing in resultContext to set
+  // Assume we are the root of the object tree for now.
+  def processThree(sourceContext, resultContext) {
+    if ( resultContext ) {
+      def class_name_of_result_context = resultContext.class.name
+      log.debug("Iterate through all properties at this level... ${class_name_of_result_context}");
+      def domain_class = grailsApplication.getDomainClass(class_name_of_result_context)
+
+      sourceContext.each { k, v ->
+        log.debug("Consider ${k} -> ${v}");
+        def p = domain_class.getPersistentProperty(k)  //  GrailsDomainClassProperty
+        if ( p ) {
+          log.debug("context has property ${k} :: ${p}");
+          if ( p.isAssociation() ) {
+            log.debug("${k} is an association");
+            if ( p.isOneToMany() ) {
+              // Synchronize the data from the form post with the data in the DB, create, update and delete records as needed.
+              processOneToManyProperty(k, v, resultContext);
             }
           }
         }
@@ -146,6 +152,4 @@ class ActivityController {
       idx++
     }
   }
-
-
 }

@@ -89,7 +89,8 @@ class ActivityController {
       def oid = sourceContext[element].__oid
       if ( oid ) {
         def oid_parts = oid.split(':');
-        def domain_class = grailsApplication.getArtefact('Domain',oid_parts[0])
+        //def domain_class = grailsApplication.getArtefact('Domain',oid_parts[0])
+        def domain_class = grailsApplication.getDomainClass(oid_parts[0])
         if ( oid_parts[1] == 'NEW' ) {
           log.debug("creating new instance...${domain_class}");
           def rslt = domain_class.getClazz().newInstance();
@@ -103,6 +104,21 @@ class ActivityController {
         log.debug("Now do the properties......");
         sourceContext[element].each { k, v ->
           log.debug("Consider ${k} -> ${v}");
+          // Is k a property in resultContext[element]? If so lets do the right thing by the kind of property
+          def p = domain_class.getPersistentProperty(k)  //  GrailsDomainClassProperty
+          if ( p ) {
+            log.debug("context has property ${k} :: ${p}");
+            if ( p.isAssociation() ) {
+              log.debug("${k} is an association");
+              if ( p.isOneToMany() ) {
+                log.debug("${k} is One to many");
+                v.each { cr ->
+                  log.debug("This should be a row of child objects.. ${cr}");
+                }
+              }
+            }
+            
+          }
         }
       }
     }

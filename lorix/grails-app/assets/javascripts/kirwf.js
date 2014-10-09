@@ -8,7 +8,7 @@
     };
 
     $scope.processForm = function() {
-      alert('processForm::'+lorixBaseUrl+'activity/ngEdit');
+      // alert('processForm::'+lorixBaseUrl+'activity/ngEdit');
 
       requestdata = {}
       requestdata.root = $scope.root
@@ -33,13 +33,12 @@
     };
 
     $scope.addNew = function(cls,prop) {
-      alert("addNew("+cls+","+prop+")");
       var listprop = eval("$scope."+prop);
       if ( listprop == null ) {
-        eval("$scope."+prop+"=[{}]");
+        eval("$scope."+prop+"=[{\"oid\":'"+cls+":NEW'}]");
       }
       else {
-        listprop.push({});
+        listprop.push({"oid":cls+':NEW'});
       }
     }
   });

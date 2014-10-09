@@ -30,16 +30,24 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Author Name</th>
+              <th>Name of participant</th>
+              <th>Matched Person</th>
+              <th>Domain Name</th>
+              <th>Institution</th>
+              <th>Role</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="author in root.authorNames">
-              <td><input type="text" ng-model="author.name"/></td>
+            <tr ng-repeat="author in root.people">
+              <td><input type="text" ng-model="author.fullname"/></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </table>
-        <button class="btn btn-success" type="button" ng-click="addNew('uk.ac.jisc.lorix.AuthorName','root.authorNames')">Add Author</button>
+        <button class="btn btn-success" type="button" ng-click="addNew('uk.ac.jisc.lorix.AuthorName','root.people')">Add Author</button>
       </div>
     </div>
 

@@ -34,6 +34,13 @@
 
     $scope.addNew = function(cls,prop) {
       alert("addNew("+cls+","+prop+")");
+      var listprop = eval("$scope."+prop);
+      if ( listprop == null ) {
+        eval("$scope."+prop+"=[{}]");
+      }
+      else {
+        listprop.push({});
+      }
     }
   });
 

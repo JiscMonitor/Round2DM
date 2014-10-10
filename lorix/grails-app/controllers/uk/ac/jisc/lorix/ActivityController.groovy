@@ -175,8 +175,6 @@ class ActivityController {
       log.debug("Iterate through all properties at this level... ${class_name_of_result_context}");
       def domain_class = grailsApplication.getDomainClass(class_name_of_result_context)
 
-     
-
       // It might be that we should merge in ordinary properties before we "save" the object so that any
       // not-null validation rules will pass. that sucks ass a little.
 
@@ -197,30 +195,38 @@ class ActivityController {
       }
 
       log.debug("Attempting to save object after setting scalar properties, but before setting any reference data...");
-      resultContext.save()
+      def result_id = resultContext.save()
+      if ( result_id ) {
 
-      // Stage 2 - set reference properties
-      sourceContext.each { k, v ->
-        log.debug("Consider ${k} -> ${v}");
-        def p = domain_class.getPersistentProperty(k)  //  GrailsDomainClassProperty
-        if ( p ) {
-          log.debug("context has property ${k} :: ${p}");
-          if ( p.isAssociation() ) {
-            log.debug("${k} is an association");
-            if ( p.isOneToMany() ) {
-              // Synchronize the data from the form post with the data in the DB, create, update and delete records as needed.
-              processOneToManyProperty(k, v, resultContext);
+        // Save worked OK - replace the __oid in the json with the newly generated ID for sending back to the
+        // client and subsequent display.
+        log.debug("saved object - id ${result_id} - ${resultContext.id}");
+
+        // Stage 2 - set reference properties
+        sourceContext.each { k, v ->
+          log.debug("Consider ${k} -> ${v}");
+          def p = domain_class.getPersistentProperty(k)  //  GrailsDomainClassProperty
+          if ( p ) {
+            log.debug("context has property ${k} :: ${p}");
+            if ( p.isAssociation() ) {
+              log.debug("${k} is an association");
+              if ( p.isOneToMany() ) {
+                // Synchronize the data from the form post with the data in the DB, create, update and delete records as needed.
+                processOneToManyProperty(k, v, resultContext);
+              }
+              else {
+                log.debug("Unhandled association type");
+              }
             }
             else {
-              log.debug("Unhandled association type");
+              // Taken care of in pass one above..
             }
-          }
-          else {
-            // Taken care of in pass one above..
           }
         }
       }
-
+      else {
+        log.error("updated ${resultContext.errors}");
+      }
     }
   }
 
@@ -260,7 +266,6 @@ class ActivityController {
           log.debug("Setting properties on child object from form post data");
           // Remember this will trigger a save after scalar properies are set, but before reference properties / collections are processed
           mergeInstanceWithPostData(child_row_data,new_child_object)
-
         }
         else {
           log.error("Something has gone amiss : adding null to a collection.. lookup or create reference property for ${child_row_data} returned null");

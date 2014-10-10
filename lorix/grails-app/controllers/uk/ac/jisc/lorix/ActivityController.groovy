@@ -242,7 +242,8 @@ class ActivityController {
              
     valueFromPost.each { child_row_data ->
       log.debug("child row: ${child_row_data}");
-      if ( idx <= num_child_objects ) {
+      if ( idx < num_child_objects ) {
+        // This seems to always trigger for the first item.. not correct!!
         log.debug("Already have a row at this position.. update");
         // Should really check that __oid matches the id of the object in our hands...
       }

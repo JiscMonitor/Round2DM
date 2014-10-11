@@ -199,12 +199,19 @@ class ActivityController {
       }
 
       log.debug("Attempting to save object after setting scalar properties, but before setting any reference data...");
-      def result_id = resultContext.save()
-      if ( result_id ) {
 
-        // Save worked OK - replace the __oid in the json with the newly generated ID for sending back to the
-        // client and subsequent display.
-        log.debug("saved object - id ${result_id} - ${resultContext.id}");
+      // If there is no current ID, we will need to update the JSON we send back with the appropriate identifiers
+      def update_oid_in_json = resultContext.id == null ? true : false
+
+      def result_of_save = resultContext.save()
+      if ( result_of_save ) {
+
+        if ( update_oid_in_json ) {
+          // Save worked OK - replace the __oid in the json with the newly generated ID for sending back to the
+          // client and subsequent display.
+          log.debug("saved object - id ${result_of_save} - ${resultContext.id}");
+          sourceContext.__oid = resultContext.class.name+':'+resultContext.id;
+        }
 
         // Stage 2 - set reference properties
         sourceContext.each { k, v ->

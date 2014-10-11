@@ -82,7 +82,11 @@ class ActivityController {
     // recursiveSave(j.root, result.root);
 
     result.status='OK'
-    render result as JSON
+    //render result as JSON
+
+    // Send back the input json - but modified so that __oid entries like x.y.z:NEW have the actual IDs,
+    // also include any error messages or other display information
+    render j as JSON
   }
 
   def recursiveValidate(formPostData, contextObject) {

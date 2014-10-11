@@ -21,6 +21,9 @@
       })
         .success(function(data) {
              console.log(data);
+             // the ngEdit should pass us back the root data with corrected __oid entries. Replace what we had here. 
+             // It may also send back error messages for problem areas.
+             $scope.root=data.root;
       //       if (!data.success) {
       //       	// if not successful, bind errors to error variables
       //           $scope.errorName = data.errors.name;

@@ -92,9 +92,9 @@
     return {
       restrict:'E',
       templateUrl:'/lorix/assets/partials/referenceProperty.html',
-      controller: function() {
+      controller: function($scope, $element, $attrs, $location) {
       },
-      controllerAs:'referenceProperty'
+      controllerAs:'referenceProperty',
     }
   });
 

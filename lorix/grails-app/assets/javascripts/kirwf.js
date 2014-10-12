@@ -91,7 +91,10 @@
   app.directive('referenceProperty', function() {
     return {
       restrict:'E',
-      templateUrl:'partials/referenceProperty.html'
+      templateUrl:'partials/referenceProperty.html',
+      controller: function() {
+      },
+      controllerAs:'referenceProperty'
     }
   });
 

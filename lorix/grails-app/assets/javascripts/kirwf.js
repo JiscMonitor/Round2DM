@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module('kirwf',['ui.bootstrap']);
+  var app = angular.module('kirwf',['ui.bootstrap','ngDialog']);
 
   app.controller('KIObjectEditor', function($scope,$http) {
     $scope.root={};
@@ -101,6 +101,7 @@
       controller: function($scope, $element, $attrs, $location) {
         this.changeValue=function() {
           alert('changeme '+$scope.disp+","+$scope.searchId);
+          // ngDialog.open({ template: 'popupTmpl.html' });
         };
       },
       controllerAs:'referenceProperty'

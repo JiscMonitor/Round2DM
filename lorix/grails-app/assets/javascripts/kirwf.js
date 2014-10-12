@@ -88,4 +88,11 @@
 
   });
 
+  app.directive('referenceProperty', function() {
+    return {
+      restrict:'E',
+      templateUrl:'partials/referenceProperty.html'
+    }
+  });
+
 })();

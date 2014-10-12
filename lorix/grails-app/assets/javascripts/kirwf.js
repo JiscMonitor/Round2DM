@@ -91,7 +91,7 @@
   app.directive('referenceProperty', function() {
     return {
       restrict:'E',
-      templateUrl:'partials/referenceProperty.html',
+      templateUrl:'/lorix/assets/partials/referenceProperty.html',
       controller: function() {
       },
       controllerAs:'referenceProperty'

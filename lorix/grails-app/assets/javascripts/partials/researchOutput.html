@@ -40,7 +40,10 @@
           <tbody>
             <tr ng-repeat="author in root.people">
               <td><input type="text" ng-model="author.fullname"/></td>
-              <td>RP::<reference-property ctx="author"></reference-property></td>
+              <td>RP::<reference-property ctx="author" 
+                                          disp="'name'" 
+                                          create-options="['a','b','c','uk.ac.jisc.lorix.Person']"
+                                          search-id="'person'"></reference-property></td>
               <td></td>
               <td></td>
               <td></td>

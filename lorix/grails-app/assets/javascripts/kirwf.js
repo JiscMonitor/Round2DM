@@ -92,13 +92,18 @@
     return {
       restrict:'E',
       scope: {
-        ctx:'=ctx'
+        ctx:'=ctx',
+        disp:'=disp',
+        createOptions:'=createOptions',
+        searchId:'=searchId'
       },
       templateUrl:'/lorix/assets/partials/referenceProperty.html',
       controller: function($scope, $element, $attrs, $location) {
+        this.changeValue=function() {
+          alert('changeme '+$scope.disp+","+$scope.searchId);
+        };
       },
       controllerAs:'referenceProperty'
     }
   });
-
 })();

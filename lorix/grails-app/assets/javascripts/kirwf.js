@@ -1,7 +1,7 @@
 (function() {
   var app = angular.module('kirwf',['ui.bootstrap','ngDialog']);
 
-  app.controller('KIObjectEditor', function($scope,$http) {
+  app.controller('KIObjectEditor', function($scope,$http,ngDialog) {
     $scope.root={};
     $scope.init = function(oid) {
       $scope.root.__oid = oid;
@@ -98,10 +98,10 @@
         searchId:'=searchId'
       },
       templateUrl:'/lorix/assets/partials/referenceProperty.html',
-      controller: function($scope, $element, $attrs, $location) {
+      controller: function($scope, $element, $attrs, $location, ngDialog) {
         this.changeValue=function() {
-          alert('changeme '+$scope.disp+","+$scope.searchId);
-          // ngDialog.open({ template: 'popupTmpl.html' });
+          // alert('changeme '+$scope.disp+","+$scope.searchId);
+          ngDialog.open({ template: '/lorix/assets/partials/lookupOrCreate.html' });
         };
       },
       controllerAs:'referenceProperty'

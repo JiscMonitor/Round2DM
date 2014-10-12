@@ -91,10 +91,13 @@
   app.directive('referenceProperty', function() {
     return {
       restrict:'E',
+      scope: {
+        ctx:'=ctx'
+      },
       templateUrl:'/lorix/assets/partials/referenceProperty.html',
       controller: function($scope, $element, $attrs, $location) {
       },
-      controllerAs:'referenceProperty',
+      controllerAs:'referenceProperty'
     }
   });
 

@@ -1,6 +1,16 @@
 (function() {
   var app = angular.module('kirwf',['search','ui.bootstrap','ngDialog']);
 
+  app.config(['ngDialogProvider', function (ngDialogProvider) {
+    ngDialogProvider.setDefaults({
+        className: 'ngdialog-theme-default',
+        plain: false,
+        showClose: true,
+        closeByDocument: false,
+        closeByEscape: true
+    });
+  }]);
+
   app.controller('KIObjectEditor', function($scope,$http,ngDialog) {
     $scope.root={};
     $scope.init = function(oid) {
@@ -100,7 +110,6 @@
       templateUrl:'/lorix/assets/partials/referenceProperty.html',
       controller: function($scope, $element, $attrs, $location, ngDialog) {
         this.changeValue=function() {
-          // alert('changeme '+$scope.disp+","+$scope.searchId);
           ngDialog.open({ template: '/lorix/assets/partials/lookupOrCreate.html',
                           className: 'ngdialog-theme-default',
                           scope: $scope });

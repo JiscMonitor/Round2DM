@@ -10,9 +10,6 @@
       },
       templateUrl:'/lorix/assets/partials/searchPanel.html',
       controller: function($scope, $element, $attrs, $location, $http, ngDialog) {
-
-        alert("Load "+$scope.searchId+" search definition from server");
-
         $http({
                method  : 'GET',
                url     : lorixBaseUrl+'definitions/lookup/'+$scope.searchId

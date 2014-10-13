@@ -18,15 +18,13 @@ class DefinitionsController {
     def result = [
       'baseClass':'uk.ac.jisc.lorix.Person',
       'searchTemplate':[
-        [property:'name', formProp:'p_name']
+        [property:'name', qparam:'p_name', prompt:'Name', placeholder:'Name']
       ],
       'searchResult':[
         [property:'name']
       ]
     ]
 
-
     render result as JSON
-    
   }
 }

@@ -7,7 +7,7 @@
 */
 
 
-.width800 { width: 800px; }
+.width800 { min-width:800px; width: initial; display:inline-block; }
 
 /*
  *  For just fit popup dlg try width:initial; display: inline-block

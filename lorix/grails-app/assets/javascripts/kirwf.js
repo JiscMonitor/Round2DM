@@ -102,7 +102,8 @@
         this.changeValue=function() {
           // alert('changeme '+$scope.disp+","+$scope.searchId);
           ngDialog.open({ template: '/lorix/assets/partials/lookupOrCreate.html',
-                          className: 'ngdialog-theme-default ' });
+                          className: 'ngdialog-theme-default',
+                          scope: $scope });
         };
       },
       controllerAs:'referenceProperty'

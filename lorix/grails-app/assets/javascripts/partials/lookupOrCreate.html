@@ -1,5 +1,9 @@
 <div class="dialog-contents">
 
+  {{disp}}
+  {{createName}}
+  {{searchId}}
+  {{ctx}}
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a href="#lookup" role="tab" data-toggle="tab">Lookup</a></li>
@@ -9,8 +13,9 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div class="tab-pane active" id="lookup">
-      <input type="text"/>
-      <input type="button" value="OK" ng-click="checkInput() && closeThisDialog('Some value')"/>
+      <search-panel search-id="searchId"></search-panel><br/>
+      <hr/>
+      scope : {{searchId}}  --done--
     </div>
     <div class="tab-pane" id="create">
     </div>

@@ -7,4 +7,5 @@
     $scope.init = function(oid) {
     };
   });
-});
+
+})();

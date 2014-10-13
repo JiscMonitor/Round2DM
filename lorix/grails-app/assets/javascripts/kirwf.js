@@ -101,7 +101,8 @@
       controller: function($scope, $element, $attrs, $location, ngDialog) {
         this.changeValue=function() {
           // alert('changeme '+$scope.disp+","+$scope.searchId);
-          ngDialog.open({ template: '/lorix/assets/partials/lookupOrCreate.html' });
+          ngDialog.open({ template: '/lorix/assets/partials/lookupOrCreate.html',
+                          className: 'ngdialog-theme-default ' });
         };
       },
       controllerAs:'referenceProperty'

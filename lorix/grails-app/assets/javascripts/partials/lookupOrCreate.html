@@ -1,4 +1,19 @@
 <div class="dialog-contents">
-    <input type="text"/>
-    <input type="button" value="OK" ng-click="checkInput() && closeThisDialog('Some value')"/>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#lookup" role="tab" data-toggle="tab">Lookup</a></li>
+    <li><a href="#create" role="tab" data-toggle="tab">Create</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="lookup">
+      <input type="text"/>
+      <input type="button" value="OK" ng-click="checkInput() && closeThisDialog('Some value')"/>
+    </div>
+    <div class="tab-pane" id="create">
+    </div>
+  </div>
+
 </div>

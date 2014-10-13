@@ -6,3 +6,9 @@
 *= require ngDialog-theme-default.min
 */
 
+
+.width800 { width: 800px; }
+
+/*
+ *  For just fit popup dlg try width:initial; display: inline-block
+ */

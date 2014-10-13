@@ -111,7 +111,7 @@
       controller: function($scope, $element, $attrs, $location, ngDialog) {
         this.changeValue=function() {
           ngDialog.open({ template: '/lorix/assets/partials/lookupOrCreate.html',
-                          className: 'ngdialog-theme-default',
+                          className: 'ngdialog-theme-default width800',
                           scope: $scope });
         };
       },

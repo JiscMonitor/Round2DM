@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module('kirwf',['ui.bootstrap','ngDialog']);
+  var app = angular.module('kirwf',['search','ui.bootstrap','ngDialog']);
 
   app.controller('KIObjectEditor', function($scope,$http,ngDialog) {
     $scope.root={};

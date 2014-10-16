@@ -130,7 +130,4 @@
     }
   });
 
-  app.controller('LookupOrCreateCtrl', function($scope,$http) {
-  });
-
 })();

@@ -11,6 +11,7 @@
 //= require ui-bootstrap-tpls-0.11.2.min
 //= require ngDialog.min
 //= require search
+//= require lookupOrCreate
 //= require kirwf
 
 if (typeof jQuery !== 'undefined') {

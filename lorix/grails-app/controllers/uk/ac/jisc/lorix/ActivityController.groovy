@@ -285,4 +285,14 @@ class ActivityController {
       idx++
     }
   }
+
+  @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
+  def search() {
+    log.debug("search: ${params}");
+    def result=[:]
+    def query_params = []
+    def limits = [:]
+    result.values = Person.executeQuery('select p from Person as p',query_params,limits);
+    render result as JSON
+  }
 }

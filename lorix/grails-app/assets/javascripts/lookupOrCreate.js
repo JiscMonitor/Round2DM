@@ -4,17 +4,21 @@
 
   app.controller('LookupOrCreateCtrl', function($scope,$http,$log) {
 
-    $log.debug("lookupOrCreate controller...");
-
-    $scope.wibble='hello';
+    $scope.init = function(baseclass, proplist) {
+      $scope.baseclass = baseclass;
+      $scope.proplist = proplist;
+    }
 
     $scope.updateSearchResults = function (value) {
+
       $log.debug("lookupOrCreate::updateSearchResults %o",value);
 
       var requestdata = {
-        baseClass:'uk.ac.jisc.lorix.Person',
-        templateValues:value
-      }
+        baseClass:$scope.baseclass, // 'uk.ac.jisc.lorix.Person',
+        templateValues:value,
+        proplist:$scope.proplist
+      };
+
       $http({
         method  : 'POST',
         url     : lorixBaseUrl+'activity/search',

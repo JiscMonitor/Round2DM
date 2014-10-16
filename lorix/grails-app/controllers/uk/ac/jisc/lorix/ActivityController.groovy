@@ -289,6 +289,9 @@ class ActivityController {
   @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])
   def search() {
     log.debug("search: ${params}");
+    def j = request.JSON
+    log.debug("Post data: ${j}");
+
     def result=[:]
     def query_params = []
     def limits = [:]

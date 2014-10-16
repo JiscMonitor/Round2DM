@@ -98,7 +98,8 @@
     $scope.currentFolder = [
       { type:'folder', name:'My Workspace', icon:'fa-folder-open', config:{}},
       { type:'tool', name:'Global Search', icon:'fa-search', config:{}},
-      { type:'tool', name:'Describe Output ', icon:'pencil-square-o', view:'/lorix/assets/partials/researchOutput.html', cfg:{a:'b',wibble:'flibble'}}
+      { type:'tool', name:'Describe Output ', icon:'pencil-square-o', view:'/lorix/assets/partials/objectCreatePanel.html', 
+              cfg:{template:'/lorix/assets/partials/researchOutput.html', heading:'Describe Research Output'}}
     ];
 
   });

@@ -14,8 +14,9 @@
     }
 
     $scope.notifyRecord = function(value) {
-      $log.debug("lookupOrCreate::notifyRecordFunc(%o)",value);
-      $log.debug("set property %o on %o to %o",$scope.ctx, $scope.property, value);
+      // $log.debug("lookupOrCreate::notifyRecordFunc(%o)",value);
+      // $log.debug("set property %o on %o to %o",$scope.property, $scope.ctx, value);
+      $scope.ctx[$scope.property] = value;
     }
 
     $scope.updateSearchResults = function (value) {

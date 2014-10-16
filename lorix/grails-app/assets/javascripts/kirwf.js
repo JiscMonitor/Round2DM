@@ -11,15 +11,21 @@
     });
   }]);
 
-  app.controller('KIObjectEditor', function($scope,$http,ngDialog) {
+  app.controller('KIObjectEditor', function($scope,$http,ngDialog,$log) {
     $scope.root={};
-    $scope.init = function(oid) {
-      $scope.root.__oid = oid;
-    };
 
-    $scope.$watch("root", function(newValue, oldValue) {
-       console.log("objedit::watchroot");
-    }, true);
+    $scope.init = function(oid, modelChangeFunc) {
+      $log.debug("init "+oid+","+modelChangeFunc);
+      $scope.root.__oid = oid;
+
+      // If we are passed a modelChangeFunc, register a watch to be notified...
+      $log.debug("Testing modelChangeFunc..");
+      if ( modelChangeFunc !== undefined ) {
+        $scope.$watch("root", function(newValue, oldValue) {
+           modelChangeFunc(newValue);
+        }, true);
+      }
+    };
 
     $scope.processForm = function() {
       // alert('processForm::'+lorixBaseUrl+'activity/ngEdit');
@@ -48,6 +54,11 @@
       //       }
         });
     };
+
+    $scope.updateSearchResults = function () {
+      $log.debug("EDITOR:updateSearchResults");
+    }
+
 
     $scope.addNew = function(cls,prop) {
       var listprop = eval("$scope."+prop);

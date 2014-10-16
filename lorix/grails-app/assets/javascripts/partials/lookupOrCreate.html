@@ -4,13 +4,13 @@
 {{searchId}}
 {{ctx}}
 
-<div class="container-fluid" controller="LookupOrCreateCtrl as loc">
+<div class="container-fluid" ng-controller="LookupOrCreateCtrl as loc">
   <div class="row">
     <div class="col-sm-6">
-      New object
+      
       <h1>Person</h1>
       <div ng-controller="KIObjectEditor as objedit" 
-           ng-init="init('uk.ac.jisc.lorix.Person:NEW')" 
+           ng-init="init('uk.ac.jisc.lorix.Person:NEW',$parent.updateSearchResults)" 
            ng-include="'/lorix/assets/partials/person.html'"></div>
     </div>
     <div class="col-sm-6">

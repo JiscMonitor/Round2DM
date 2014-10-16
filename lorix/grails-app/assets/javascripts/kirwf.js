@@ -129,4 +129,8 @@
       controllerAs:'referenceProperty'
     }
   });
+
+  app.controller('LookupOrCreateCtrl', function($scope,$http) {
+  });
+
 })();

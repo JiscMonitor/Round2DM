@@ -1,14 +1,17 @@
-<div class="container-fluid">
+<!-- http://fossies.org/linux/www/piwik-2.7.0.tar.gz/piwik/plugins/CoreHome/angularjs/dialogtoggler/ngdialog.less -->
+{{disp}}
+{{createName}}
+{{searchId}}
+{{ctx}}
+
+<div class="container-fluid" controller="LookupOrCreateCtrl as loc">
   <div class="row">
     <div class="col-sm-6">
       New object
-      <!-- http://fossies.org/linux/www/piwik-2.7.0.tar.gz/piwik/plugins/CoreHome/angularjs/dialogtoggler/ngdialog.less -->
-      {{disp}}
-      {{createName}}
-      {{searchId}}
-      {{ctx}}
       <h1>Person</h1>
-      <div ng-controller="KIObjectEditor as objedit" ng-init="init('uk.ac.jisc.lorix.Person:NEW')" ng-include="'/lorix/assets/partials/person.html'"></div>
+      <div ng-controller="KIObjectEditor as objedit" 
+           ng-init="init('uk.ac.jisc.lorix.Person:NEW')" 
+           ng-include="'/lorix/assets/partials/person.html'"></div>
     </div>
     <div class="col-sm-6">
       Search Results

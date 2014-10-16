@@ -14,7 +14,7 @@
 //= require kirwf
 
 if (typeof jQuery !== 'undefined') {
-  $(function() {
+  (function($) {
 
     $('.popupRefdata').click(function() {
       alert('popupRefdataForm');

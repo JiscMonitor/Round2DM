@@ -17,6 +17,10 @@
       $scope.root.__oid = oid;
     };
 
+    $scope.$watch("root", function(newValue, oldValue) {
+       console.log("objedit::watchroot");
+    }, true);
+
     $scope.processForm = function() {
       // alert('processForm::'+lorixBaseUrl+'activity/ngEdit');
 
@@ -114,6 +118,11 @@
                           className: 'ngdialog-theme-default width800',
                           scope: $scope });
         };
+
+        $scope.$watch("root", function(newValue, oldValue) {
+          console.log("boo3");
+        }, true);
+
       },
       controllerAs:'referenceProperty'
     }

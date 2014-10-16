@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module('kirwf',['search','ui.bootstrap','ngDialog']);
+  var app = angular.module('kirwf',['search', 'lookupOrCreate','ui.bootstrap','ngDialog']);
 
   app.config(['ngDialogProvider', function (ngDialogProvider) {
     ngDialogProvider.setDefaults({

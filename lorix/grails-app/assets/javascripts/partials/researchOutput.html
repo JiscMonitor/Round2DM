@@ -1,4 +1,7 @@
 <h1>Research Output</h1>
+<p>
+Config:: {{cfg}} config.a: {{cfg.a}} scope.config.a {{$scope.cfg.a}}
+</p>
 <div ng-controller="KIObjectEditor as objedit" ng-init="init('uk.ac.jisc.lorix.ResearchOutput:NEW')">
   <form method="post" class="form-horizontal" role="form" ng-submit="processForm()">
     <input type="hidden" name="root.__oid" value="uk.ac.jisc.lorix.ResearchOutput:NEW" ng-model="root.__oid" />
@@ -61,5 +64,5 @@
     </div>
   </form>
 
-  Some scope variables.... oe: {{root}} 
+  Some scope variables.... : {{root}} 
 </div>

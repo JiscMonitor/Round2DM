@@ -7,7 +7,8 @@
       {{createName}}
       {{searchId}}
       {{ctx}}
-      <ng-include src="'/lorix/assets/partials/person.html'" />
+      <h1>Person</h1>
+      <div ng-controller="KIObjectEditor as objedit" ng-init="init('uk.ac.jisc.lorix.Person:NEW')" ng-include="'/lorix/assets/partials/person.html'"></div>
     </div>
     <div class="col-sm-6">
       Search Results

@@ -225,8 +225,12 @@ class ActivityController {
                 // Synchronize the data from the form post with the data in the DB, create, update and delete records as needed.
                 processOneToManyProperty(k, v, resultContext);
               }
+              else if ( p.isManyToOne() ) {
+                log.debug("Many to one");
+                processManyToOneProperty(k, v, resultContext);
+              }
               else {
-                log.debug("Unhandled association type");
+                log.debug("Unhandled association type : isOwningSide:${p.isOwningSide()} isHasOne:${p.isHasOne()} isOneToOne:${p.isOneToOne()} ");
               }
             }
             else {
@@ -284,6 +288,10 @@ class ActivityController {
       }
       idx++
     }
+  }
+
+  def processManyToOneProperty(propName, valueFromPost, parentDBObject) {
+    log.debug("processManyToOneProperty....${propName} ${valueFromPost} ${parentDBObject}");
   }
 
   @Secured(['ROLE_USER', 'IS_AUTHENTICATED_FULLY'])

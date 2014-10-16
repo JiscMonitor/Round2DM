@@ -11,6 +11,14 @@ class Person extends LorixComponent {
     fullname    (nullable:true, blank:false, maxSize:2048)
   }
 
+  static hasMany = [
+    nameOccurrences:AuthorName
+  ]
+
+  static mappedBy = [
+    nameOccurrences:'matchedPerson'
+  ]
+
   static mapping = {
   }
 }

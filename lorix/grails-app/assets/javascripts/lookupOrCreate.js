@@ -9,6 +9,10 @@
       $scope.proplist = proplist;
     }
 
+    $scope.notifyRecord = function(value) {
+      $log.debug("lookupOrCreate::notifyRecordFunc(%o)",value);
+    }
+
     $scope.updateSearchResults = function (value) {
 
       $log.debug("lookupOrCreate::updateSearchResults %o",value);

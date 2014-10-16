@@ -14,9 +14,12 @@
   app.controller('KIObjectEditor', function($scope,$http,ngDialog,$log) {
     $scope.root={};
 
-    $scope.init = function(oid, modelChangeFunc) {
+    $scope.init = function(oid, modelChangeFunc, notifyRecordFunc) {
+
       $log.debug("init "+oid+","+modelChangeFunc);
+
       $scope.root.__oid = oid;
+      $scope.notifyRecordFunc = notifyRecordFunc;
 
       // If we are passed a modelChangeFunc, register a watch to be notified...
       $log.debug("Testing modelChangeFunc..");
@@ -44,20 +47,20 @@
              // the ngEdit should pass us back the root data with corrected __oid entries. Replace what we had here. 
              // It may also send back error messages for problem areas.
              $scope.root=data.root;
-      //       if (!data.success) {
-      //       	// if not successful, bind errors to error variables
-      //           $scope.errorName = data.errors.name;
-      //           $scope.errorSuperhero = data.errors.superheroAlias;
-      //       } else {
-      //       	// if successful, bind success message to message
-      //           $scope.message = data.message;
-      //       }
+
+             if ( $scope.notifyRecordFunc != undefined ) {
+               $log.debug("calling notifyRecordFunc... %o",$scope.notifyRecordFunc);
+               $scope.notifyRecordFunc(data.root);
+             }
+             else {
+               $log.debug("No  notifyRecordFunc... continue");
+             }
         });
     };
 
-    $scope.updateSearchResults = function () {
-      $log.debug("EDITOR:updateSearchResults");
-    }
+    // $scope.updateSearchResults = function () {
+    //   $log.debug("EDITOR:updateSearchResults");
+    // }
 
 
     $scope.addNew = function(cls,prop) {
@@ -116,13 +119,14 @@
   });
 
   app.directive('referenceProperty', function() {
+
     return {
       restrict:'E',
       scope: {
-        ctx:'=ctx',
+        ctx:'=ctx',   // ctx is the JS map of the parent object
         disp:'=disp',
-        createOptions:'=createOptions',
-        searchId:'=searchId'
+        prop:'=prop',
+        createOptions:'=createOptions'
       },
       templateUrl:'/lorix/assets/partials/referenceProperty.html',
       controller: function($scope, $element, $attrs, $location, ngDialog) {
@@ -131,11 +135,6 @@
                           className: 'ngdialog-theme-default width800',
                           scope: $scope });
         };
-
-        $scope.$watch("root", function(newValue, oldValue) {
-          console.log("boo3");
-        }, true);
-
       },
       controllerAs:'referenceProperty'
     }

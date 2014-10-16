@@ -1,8 +1,8 @@
 <!-- http://fossies.org/linux/www/piwik-2.7.0.tar.gz/piwik/plugins/CoreHome/angularjs/dialogtoggler/ngdialog.less -->
-{{disp}}
-{{createName}}
-{{searchId}}
-{{ctx}}
+Display:"{{disp}}"
+CreateName:"{{createName}}"
+Ctx:"{{ctx}}"
+Prop:"{{prop}}"
 
 <div class="container-fluid" ng-controller="LookupOrCreateCtrl as loc">
   <div class="row">
@@ -10,7 +10,7 @@
       
       <h1>Person</h1>
       <div ng-controller="KIObjectEditor as objedit" 
-           ng-init="init('uk.ac.jisc.lorix.Person:NEW',$parent.updateSearchResults)" 
+           ng-init="init('uk.ac.jisc.lorix.Person:NEW',$parent.updateSearchResults,$parent.notifyRecord)" 
            ng-include="'/lorix/assets/partials/person.html'"></div>
     </div>
     <div class="col-sm-6">

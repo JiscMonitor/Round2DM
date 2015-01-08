@@ -7,7 +7,7 @@ class UrlMappings {
             }
         }
 
-        "/"(controller:'home', action:'index')
+        "/"(controller:'workspace', action:'index')
         "/org/${shortcode}/$action" (controller:'org')
 
         "500"(view:'/error')

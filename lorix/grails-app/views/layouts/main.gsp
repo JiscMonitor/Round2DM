@@ -77,6 +77,7 @@
                 <li class="${params?.controller == "welcome"  ? 'active' : ''}"><g:link controller="welcome"><i class="fa fa-dashboard fa-fw"></i> My Dashboard</g:link></li>
               -->
               <li class="${params?.controller == "home"  ? 'active' : ''}"><g:link controller="home"><i class="fa fa-home fa-fw"></i> Home</g:link></li>
+              <li class="${params?.controller == "workspace"  ? 'active' : ''}"><g:link controller="workspace"><i class="fa fa-home fa-fw"></i> Workspace</g:link></li>
               
               <sec:ifLoggedIn>
                 <li class="${params?.controller == "search" || params?.controller == "globalSearch"  ? 'active' : ''}"><a href="#"><i class="fa fa-search fa-fw"></i>Search<span class="fa arrow"></span></a>
